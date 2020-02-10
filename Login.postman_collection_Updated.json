@@ -1,0 +1,260 @@
+{
+	"id": "971c8985-e87d-5e4e-39c0-dd110276df92",
+	"name": "Login copy",
+	"description": "Common Login Workflow",
+	"order": [],
+	"folders_order": [
+		"6549984f-ad36-82cb-231f-a4e21372580f"
+	],
+	"folders": [
+		{
+			"id": "16c5b9a1-d269-b702-ec79-25ef94de2761",
+			"name": "CheckUserName",
+			"description": "Checking all the possible scenarios of the Test case ",
+			"order": [
+				"c8987044-163d-29e5-6df7-bf86ed524b6a",
+				"5c8122ad-ac7d-ac19-a89b-d4e3a60d7414",
+				"ffe758bb-75de-6b0f-a251-465f3b4815b2",
+				"ef6c8d67-afec-9d92-1c41-5595403db3ec",
+				"f61334b6-793c-f85f-041a-cdb095ad2eb1",
+				"36427025-e514-1c6b-6bde-3e7f4b572d2c",
+				"535ad6b9-4af0-635b-fa4a-a161a18c26cc",
+				"c4bec466-bf31-c639-f077-eed9df4ba7f9"
+			],
+			"folders_order": [],
+			"owner": "4627464",
+			"collectionId": "971c8985-e87d-5e4e-39c0-dd110276df92"
+		},
+		{
+			"id": "6549984f-ad36-82cb-231f-a4e21372580f",
+			"name": "Resources",
+			"description": "Adding requests",
+			"order": [],
+			"folders_order": [
+				"16c5b9a1-d269-b702-ec79-25ef94de2761"
+			],
+			"owner": "4627464",
+			"collectionId": "971c8985-e87d-5e4e-39c0-dd110276df92"
+		}
+	],
+	"owner": "4627464",
+	"hasRequests": true,
+	"requests": [
+		{
+			"id": "36427025-e514-1c6b-6bde-3e7f4b572d2c",
+			"name": "SetPasswordAfterReset-picture",
+			"description": "",
+			"collectionId": "971c8985-e87d-5e4e-39c0-dd110276df92",
+			"method": "POST",
+			"headers": "Content-Type: application/json",
+			"dataMode": "raw",
+			"data": [],
+			"rawModeData": "{\n  \"username\": \"teacher.02_rearch\",\n  \"browserInfo\": {\n    \"userAgent\": \"\",\n    \"windowDimension\": {\n      \"width\": 1024,\n      \"height\": 800\n    },\n    \"viewPortSize\": {\n      \"width\": 1024,\n      \"height\": 670\n    },\n    \"touchEnabled\": false,\n    \"OS\": \"\",\n    \"compatibilityCheck\": {\n      \"javascriptEnabled\": true,\n      \"angularSupported\": true\n    },\n    \"contentUrlAccess\": true\n  }\n}",
+			"tests": "// checking status code \npm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\n    var jsonData = pm.response.json();\n//Checking with SetPasswordAfterReset\n/*pm.test(\"Checking SetPasswordAfterReset\", function () {\n     pm.expect(jsonData.resultCode).to.eql(\"C004\");\n     pm.expect(jsonData.resultMessage).to.eql(\"redirect\");\n     pm.expect(jsonData.redirectionCode).to.eql(\"SetPasswordAfterReset\");\n     pm.expect(jsonData.redirectionData.newPasswordType).to.eql(\"picture\");\n     pm.expect(jsonData.redirectionData.username).to.eql(\"demo.1c59\");\n     pm.expect(jsonData.redirectionData.firstName).to.eql(\"Demo\");\n     pm.expect(jsonData.redirectionData.lastName).to.eql(\"1c59\");\n});*/\n//\npm.test(\"Successful POST request\", function () {\n    pm.expect(pm.response.code).to.be.oneOf([200,201]);\n});\n\n/*\nvar schema =     {\n    \"definitions\": {},\n    \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n    \"type\": \"object\",\n    \"required\": [\n      \"resultCode\",\n      \"resultMessage\",\n      \"redirectionCode\",\n     \"redirectionData\",\n     \"today\"\n   ],\n   \"properties\": {\n     \"resultCode\": {\n       \"$id\": \"#/properties/resultCode\",\n       \"type\": \"string\",\n     },\n     \"resultMessage\": {\n       \"$id\": \"#/properties/resultMessage\",\n       \"type\": \"string\",\n     },\n     \"redirectionCode\": {\n       \"$id\": \"#/properties/redirectionCode\",\n       \"type\": \"string\",\n     },\n     \"redirectionData\": {\n       \"$id\": \"#/properties/redirectionData\",\n       \"type\": \"object\",\n       \"required\": [\n         \"newPasswordType\",\n         \"username\",\n         \"firstName\",\n         \"lastName\"\n       ],\n       \"properties\": {\n         \"newPasswordType\": {\n           \"$id\": \"#/properties/redirectionData/properties/newPasswordType\",\n           \"type\": \"string\",\n         },\n         \"username\": {\n           \"$id\": \"#/properties/redirectionData/properties/username\",\n           \"type\": \"string\",\n         },\n         \"firstName\": {\n           \"$id\": \"#/properties/redirectionData/properties/firstName\",\n           \"type\": \"string\",\n         },\n         \"lastName\": {\n           \"$id\": \"#/properties/redirectionData/properties/lastName\",\n           \"type\": \"string\",\n         }\n       }\n     },\n     \"today\": {\n       \"$id\": \"#/properties/today\",\n       \"type\": \"string\",\n     }\n   }\n };\n\n\npm.test('Schema is valid', function() {\n  pm.expect(tv4.validate(jsonData, schema)).to.be.true;\n//   pm.expect(tv4.validate(data2, schema)).to.be.true; // this statement would not be true\n});\n*/\n\n\n",
+			"preRequestScript": "",
+			"url": "{{url}}/CommonLogin/CheckUsername",
+			"responses": [],
+			"pathVariableData": [],
+			"queryParams": [],
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"type": "text"
+				}
+			],
+			"collection_id": "971c8985-e87d-5e4e-39c0-dd110276df92",
+			"folder": "16c5b9a1-d269-b702-ec79-25ef94de2761"
+		},
+		{
+			"id": "535ad6b9-4af0-635b-fa4a-a161a18c26cc",
+			"name": "SetpasswordAfterReset-Text",
+			"description": "",
+			"collectionId": "971c8985-e87d-5e4e-39c0-dd110276df92",
+			"method": "POST",
+			"headers": "Content-Type: application/json",
+			"dataMode": "raw",
+			"data": [],
+			"rawModeData": "{\n  \"username\": \"teacher.02_rearch\",\n  \"browserInfo\": {\n    \"userAgent\": \"\",\n    \"windowDimension\": {\n      \"width\": 1024,\n      \"height\": 800\n    },\n    \"viewPortSize\": {\n      \"width\": 1024,\n      \"height\": 670\n    },\n    \"touchEnabled\": false,\n    \"OS\": \"\",\n    \"compatibilityCheck\": {\n      \"javascriptEnabled\": true,\n      \"angularSupported\": true\n    },\n    \"contentUrlAccess\": true\n  }\n}",
+			"tests": "// checking status code \npm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n    var jsonData = pm.response.json();\n//Checking with SetPasswordAfterReset\n/*pm.test(\"Checking SetPasswordAfterReset\", function () {\n      pm.expect(jsonData.resultCode).to.eql(\"C004\");\n    pm.expect(jsonData.resultMessage).to.eql(\"redirect\");\n    pm.expect(jsonData.redirectionCode).to.eql(\"SetPasswordAfterReset\");\n    pm.expect(jsonData.redirectionData.newPasswordType).to.eql(\"text\");\n     pm.expect(jsonData.redirectionData.username).to.eql(\"demo.6d1\");\n     pm.expect(jsonData.redirectionData.firstName).to.eql(\"Demo\");\n     pm.expect(jsonData.redirectionData.lastName).to.eql(\"6d1\");\n});\n//\npm.test(\"Successful POST request\", function () {\n    pm.expect(pm.response.code).to.be.oneOf([200,201]);\n});\n*/\n/*\nvar schema =     {\n    \"definitions\": {},\n    \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n    \"type\": \"object\",\n    \"required\": [\n      \"resultCode\",\n      \"resultMessage\",\n      \"redirectionCode\",\n     \"redirectionData\",\n     \"today\"\n   ],\n   \"properties\": {\n     \"resultCode\": {\n       \"$id\": \"#/properties/resultCode\",\n       \"type\": \"string\",\n     },\n     \"resultMessage\": {\n       \"$id\": \"#/properties/resultMessage\",\n       \"type\": \"string\",\n     },\n     \"redirectionCode\": {\n       \"$id\": \"#/properties/redirectionCode\",\n       \"type\": \"string\",\n     },\n     \"redirectionData\": {\n       \"$id\": \"#/properties/redirectionData\",\n       \"type\": \"object\",\n       \"required\": [\n         \"newPasswordType\",\n         \"username\",\n         \"firstName\",\n         \"lastName\"\n       ],\n       \"properties\": {\n         \"newPasswordType\": {\n           \"$id\": \"#/properties/redirectionData/properties/newPasswordType\",\n           \"type\": \"string\",\n         },\n         \"username\": {\n           \"$id\": \"#/properties/redirectionData/properties/username\",\n           \"type\": \"string\",\n         },\n         \"firstName\": {\n           \"$id\": \"#/properties/redirectionData/properties/firstName\",\n           \"type\": \"string\",\n         },\n         \"lastName\": {\n           \"$id\": \"#/properties/redirectionData/properties/lastName\",\n           \"type\": \"string\",\n         }\n       }\n     },\n     \"today\": {\n       \"$id\": \"#/properties/today\",\n       \"type\": \"string\",\n     }\n   }\n };\n\n\npm.test('Schema is valid', function() {\n  pm.expect(tv4.validate(jsonData, schema)).to.be.true;\n//   pm.expect(tv4.validate(data2, schema)).to.be.true; // this statement would not be true\n});\n*/",
+			"preRequestScript": "",
+			"url": "{{url}}/CommonLogin/CheckUsername",
+			"responses": [],
+			"pathVariableData": [],
+			"queryParams": [],
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"type": "text"
+				}
+			],
+			"collection_id": "971c8985-e87d-5e4e-39c0-dd110276df92",
+			"folder": "16c5b9a1-d269-b702-ec79-25ef94de2761"
+		},
+		{
+			"id": "5c8122ad-ac7d-ac19-a89b-d4e3a60d7414",
+			"name": "User name not found case-2",
+			"description": "",
+			"collectionId": "971c8985-e87d-5e4e-39c0-dd110276df92",
+			"method": "POST",
+			"headers": "Content-Type: application/json",
+			"dataMode": "raw",
+			"data": [],
+			"rawModeData": "{\n  \"username\": \"ff\"\n \n}",
+			"tests": "// checking status code \npm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\nvar jsonData = pm.response.json();\n//Checking  AccountLocked\npm.test(\"Checking Account\", function () {\n        pm.expect(jsonData.resultMessage).to.eql(\"Username not found\");\n});\n//\n\nvar schema = {\n  \"items\": {\n    \"type\": \"object\",\n    \"Properties\":\n    {\n        \"resultCode\":{\"type\":\"string\"},\n        \"resultMessage\":{\"type\":\"string\"},\n        \"today\":{\"type\":\"string\"}\n    }\n  }\n};\n\n\npm.test('Schema is valid', function() {\n  pm.expect(tv4.validate(jsonData, schema)).to.be.true;\n\n});\n\n",
+			"preRequestScript": "",
+			"url": "{{url}}/CommonLogin/CheckUsername",
+			"responses": [],
+			"pathVariableData": [],
+			"queryParams": [],
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"type": "text"
+				}
+			],
+			"collection_id": "971c8985-e87d-5e4e-39c0-dd110276df92",
+			"folder": "16c5b9a1-d269-b702-ec79-25ef94de2761"
+		},
+		{
+			"id": "c4bec466-bf31-c639-f077-eed9df4ba7f9",
+			"name": "RequestPswd--Reset",
+			"description": "",
+			"collectionId": "971c8985-e87d-5e4e-39c0-dd110276df92",
+			"method": "POST",
+			"headers": "Content-Type: application/json",
+			"dataMode": "raw",
+			"data": [],
+			"rawModeData": "{\n  \"username\": \"teacher.02_rearch\",\n  \"browserInfo\": {\n    \"userAgent\": \"\",\n    \"windowDimension\": {\n      \"width\": 1024,\n      \"height\": 800\n    },\n    \"viewPortSize\": {\n      \"width\": 1024,\n      \"height\": 670\n    },\n    \"touchEnabled\": false,\n    \"OS\": \"\",\n    \"compatibilityCheck\": {\n      \"javascriptEnabled\": true,\n      \"angularSupported\": true\n    },\n    \"contentUrlAccess\": true\n  }\n}",
+			"tests": "// checking status code \npm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\nvar jsonData = pm.response.json();\n//Checking with SetPasswordAfterReset\n// pm.test(\"Checking SetPasswordAfterReset\", function () {\n//       pm.expect(jsonData.resultCode).to.eql(\"C004\");\n//     pm.expect(jsonData.resultMessage).to.eql(\"redirect\");\n//     pm.expect(jsonData.redirectionCode).to.eql(\"SetPasswordAfterReset\");\n//     pm.expect(jsonData.redirectionData.newPasswordType).to.eql(\"text\");\n//      pm.expect(jsonData.redirectionData.username).to.eql(\"demo.6d1\");\n//      pm.expect(jsonData.redirectionData.firstName).to.eql(\"Demo\");\n//      pm.expect(jsonData.redirectionData.lastName).to.eql(\"6d1\");\n// });\n//\npm.test(\"Successful POST request\", function () {\n    pm.expect(pm.response.code).to.be.oneOf([200,201]);\n});\n\nvar schema =   {\n    \"definitions\": {},\n    \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n    \"type\": \"object\",\n    \"required\": [\n      \"resultCode\",\n      \"resultMessage\",\n     \"userInformation\",\n     \"today\"\n   ],\n   \"properties\": {\n     \"resultCode\": {\n       \"$id\": \"#/properties/resultCode\",\n       \"type\": \"string\",\n     },\n     \"resultMessage\": {\n       \"$id\": \"#/properties/resultMessage\",\n       \"type\": \"string\",\n     },\n     \"userInformation\": {\n       \"$id\": \"#/properties/userInformation\",\n       \"type\": \"object\",\n       \"required\": [\n         \"username\",\n         \"passwordType\",\n         \"callSetNewPasswordType\"\n       ],\n       \"properties\": {\n         \"username\": {\n           \"$id\": \"#/properties/userInformation/properties/username\",\n           \"type\": \"string\",         \n         },\n         \"passwordType\": {\n           \"$id\": \"#/properties/userInformation/properties/passwordType\",\n           \"type\": \"string\",\n         },\n         \"callSetNewPasswordType\": {\n           \"$id\": \"#/properties/userInformation/properties/callSetNewPasswordType\",\n           \"type\": \"boolean\", \n         }\n       }\n     },\n     \"today\": {\n       \"$id\": \"#/properties/today\",\n       \"type\": \"string\",\n     }\n   }\n };\n\n\npm.test('Schema is valid', function() {\n  pm.expect(tv4.validate(jsonData, schema)).to.be.true;\n//   pm.expect(tv4.validate(data2, schema)).to.be.true; // this statement would not be true\n});\n\n\n",
+			"preRequestScript": "",
+			"url": "{{url}}/CommonLogin/CheckUsername",
+			"responses": [],
+			"pathVariableData": [],
+			"queryParams": [],
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"type": "text"
+				}
+			],
+			"collection_id": "971c8985-e87d-5e4e-39c0-dd110276df92",
+			"folder": "16c5b9a1-d269-b702-ec79-25ef94de2761"
+		},
+		{
+			"id": "c8987044-163d-29e5-6df7-bf86ed524b6a",
+			"name": "User name not found",
+			"description": "",
+			"collectionId": "971c8985-e87d-5e4e-39c0-dd110276df92",
+			"method": "POST",
+			"headers": "Content-Type: application/json",
+			"dataMode": "raw",
+			"data": [],
+			"rawModeData": "{\n  \"username\": \"gredrge\",\n  \n  \"browserInfo\": {\n    \"userAgent\": \"\",\n    \"windowDimension\": {\n      \"width\": 1024,\n      \"height\": 800\n    },\n    \"viewPortSize\": {\n      \"width\": 1024,\n      \"height\": 670\n    },\n    \"touchEnabled\": false,\n    \"OS\": \"\",\n    \"compatibilityCheck\": {\n      \"javascriptEnabled\": true,\n      \"angularSupported\": true\n    },\n    \"contentUrlAccess\": true\n  }\n}",
+			"tests": "// checking status code \npm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\nvar jsonData = pm.response.json();\n//Checking  AccountLocked\npm.test(\"Checking Account\", function () {\n        pm.expect(jsonData.resultMessage).to.eql(\"Username not found\");\n});\n//\n\nvar schema = {\n  \n   \"definitions\": {},\n   \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n   \"type\": \"object\",\n   \"required\": [\n     \"resultCode\",\n     \"resultMessage\",\n     \"today\"\n  ],\n  \"properties\": {\n    \"resultCode\": {\n      \"$id\": \"#/properties/resultCode\",\n      \"type\": \"string\",\n    },\n    \"resultMessage\": {\n      \"$id\": \"#/properties/resultMessage\",\n      \"type\": \"string\",\n    },\n    \"today\": {\n      \"$id\": \"#/properties/today\",\n      \"type\": \"string\",\n    }\n  }\n\n};\n\n\npm.test('Schema is valid', function() {\n  pm.expect(tv4.validate(jsonData, schema)).to.be.true;\n//   pm.expect(tv4.validate(data2, schema)).to.be.true; // this statement would not be true\n});\n\n",
+			"preRequestScript": "",
+			"url": "{{url}}/CommonLogin/CheckUsername",
+			"responses": [],
+			"pathVariableData": [],
+			"queryParams": [],
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"type": "text"
+				}
+			],
+			"collection_id": "971c8985-e87d-5e4e-39c0-dd110276df92",
+			"folder": "16c5b9a1-d269-b702-ec79-25ef94de2761"
+		},
+		{
+			"id": "ef6c8d67-afec-9d92-1c41-5595403db3ec",
+			"name": "Sucess-Picture",
+			"description": "",
+			"collectionId": "971c8985-e87d-5e4e-39c0-dd110276df92",
+			"method": "POST",
+			"headers": "Content-Type: application/json",
+			"dataMode": "raw",
+			"data": [],
+			"rawModeData": "{\n  \"username\": \"demo.1c40\",\n  \"browserInfo\": {\n    \"userAgent\": \"\",\n    \"windowDimension\": {\n      \"width\": 1024,\n      \"height\": 800\n    },\n    \"viewPortSize\": {\n      \"width\": 1024,\n      \"height\": 670\n    },\n    \"touchEnabled\": false,\n    \"OS\": \"\",\n    \"compatibilityCheck\": {\n      \"javascriptEnabled\": true,\n      \"angularSupported\": true\n    },\n    \"contentUrlAccess\": true\n  }\n}",
+			"tests": "// checking status code \npm.test(\"Status code is 200\", function() {\n    pm.response.to.have.status(200);\n});\n\nvar jsonData = pm.response.json();\n//Checking with Positive validations\n/*pm.test(\"Checking Account\", function() {\n  pm.expect(jsonData.resultCode).to.eql(\"C001\");\n    pm.expect(jsonData.resultMessage).to.eql(\"success\");\n    pm.expect(jsonData.userInformation.username).to.eql(\"demo.1c40\");\n    pm.expect(jsonData.userInformation.passwordType).to.eql(\"picture\");\n});*/\n//\npm.test(\"Successful POST request\", function() {\n    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\n});\n\nvar schema = {\n  \"items\": {\n    \"type\": \"object\",\n    \"Properties\":\n    {\n        \"resultCode\":{\"type\":\"string\"},\n        \"resultMessage\":{\"type\":\"string\"},\n        \"today\":{\"type\":\"string\"}\n    }\n  }\n};\n\n\npm.test('Schema is valid', function() {\n  pm.expect(tv4.validate(jsonData, schema)).to.be.true;\n\n});",
+			"preRequestScript": "",
+			"url": "{{url}}/CommonLogin/CheckUsername",
+			"responses": [],
+			"pathVariableData": [],
+			"queryParams": [],
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"type": "text",
+					"value": "application/json"
+				}
+			],
+			"collection_id": "971c8985-e87d-5e4e-39c0-dd110276df92",
+			"folder": "16c5b9a1-d269-b702-ec79-25ef94de2761"
+		},
+		{
+			"id": "f61334b6-793c-f85f-041a-cdb095ad2eb1",
+			"name": "Sucess-text",
+			"description": "",
+			"collectionId": "971c8985-e87d-5e4e-39c0-dd110276df92",
+			"method": "POST",
+			"headers": "Content-Type: application/json",
+			"dataMode": "raw",
+			"data": [],
+			"rawModeData": "{\n  \"username\": \"teacher.02_rearch\",\n  \"browserInfo\": {\n    \"userAgent\": \"\",\n    \"windowDimension\": {\n      \"width\": 1024,\n      \"height\": 800\n    },\n    \"viewPortSize\": {\n      \"width\": 1024,\n      \"height\": 670\n    },\n    \"touchEnabled\": false,\n    \"OS\": \"\",\n    \"compatibilityCheck\": {\n      \"javascriptEnabled\": true,\n      \"angularSupported\": true\n    },\n    \"contentUrlAccess\": true\n  }\n}",
+			"tests": "// checking status code \npm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\nvar jsonData = pm.response.json();\n//Checking with SetPasswordAfterReset\npm.test(\"Checking SetPasswordAfterReset\", function () {\n    \n      pm.expect(jsonData.resultCode).to.eql(\"C001\");\n        pm.expect(jsonData.resultMessage).to.eql(\"success\");\n     \n     pm.expect(jsonData.userInformation.passwordType).to.eql(\"text\");\n\n});\n//\npm.test(\"Successful POST request\", function () {\n    pm.expect(pm.response.code).to.be.oneOf([200,201]);\n});\n//\nvar schema =   {\n    \"definitions\": {},\n    \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n    \"type\": \"object\",\n    \"required\": [\n      \"resultCode\",\n      \"resultMessage\",\n     \"userInformation\",\n     \"today\"\n   ],\n   \"properties\": {\n     \"resultCode\": {\n       \"$id\": \"#/properties/resultCode\",\n       \"type\": \"string\",\n     },\n     \"resultMessage\": {\n       \"$id\": \"#/properties/resultMessage\",\n       \"type\": \"string\",\n     },\n     \"userInformation\": {\n       \"$id\": \"#/properties/userInformation\",\n       \"type\": \"object\",\n       \"required\": [\n         \"username\",\n         \"passwordType\",\n         \"callSetNewPasswordType\"\n       ],\n       \"properties\": {\n         \"username\": {\n           \"$id\": \"#/properties/userInformation/properties/username\",\n           \"type\": \"string\",         \n         },\n         \"passwordType\": {\n           \"$id\": \"#/properties/userInformation/properties/passwordType\",\n           \"type\": \"string\",\n         },\n         \"callSetNewPasswordType\": {\n           \"$id\": \"#/properties/userInformation/properties/callSetNewPasswordType\",\n           \"type\": \"boolean\", \n         }\n       }\n     },\n     \"today\": {\n       \"$id\": \"#/properties/today\",\n       \"type\": \"string\",\n     }\n   }\n };\n\n\npm.test('Schema is valid', function() {\n  pm.expect(tv4.validate(jsonData, schema)).to.be.true;\n//   pm.expect(tv4.validate(data2, schema)).to.be.true; // this statement would not be true\n});\n\n\n",
+			"preRequestScript": "",
+			"url": "{{url}}/CommonLogin/CheckUsername",
+			"responses": [],
+			"pathVariableData": [],
+			"queryParams": [],
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"type": "text",
+					"value": "application/json"
+				}
+			],
+			"collection_id": "971c8985-e87d-5e4e-39c0-dd110276df92",
+			"folder": "16c5b9a1-d269-b702-ec79-25ef94de2761"
+		},
+		{
+			"id": "ffe758bb-75de-6b0f-a251-465f3b4815b2",
+			"name": "AccountLocked",
+			"description": "",
+			"collectionId": "971c8985-e87d-5e4e-39c0-dd110276df92",
+			"method": "POST",
+			"headers": "Content-Type: application/json",
+			"dataMode": "raw",
+			"data": [],
+			"rawModeData": "{\n  \"username\": \"teacher.02_rearch\",\n  \"browserInfo\": {\n    \"userAgent\": \"\",\n    \"windowDimension\": {\n      \"width\": 1024,\n      \"height\": 800\n    },\n    \"viewPortSize\": {\n      \"width\": 1024,\n      \"height\": 670\n    },\n    \"touchEnabled\": false,\n    \"OS\": \"\",\n    \"compatibilityCheck\": {\n      \"javascriptEnabled\": true,\n      \"angularSupported\": true\n    },\n    \"contentUrlAccess\": true\n  }\n}",
+			"tests": "// checking status code \npm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\nvar jsonData = pm.response.json();\n//Checking  AccountLocked\n//pm.test(\"Checking Account\", function () {\n//    pm.expect(jsonData.resultCode).to.eql(\"C004\")\n//    pm.expect(jsonData.resultMessage).to.eql(\"redirect\");\n//     pm.expect(jsonData.redirectionCode).to.eql(\"AccountLocked\");\n//});\n//\npm.test(\"Response time is less than 1000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(1000);\n});\n\nvar schema = {\n    \"definitions\": {},\n    \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n    \"type\": \"object\",\n    \"title\": \"The Root Schema\",\n    \"required\": [\n      \"resultCode\",\n      \"resultMessage\",\n     \"userInformation\",\n     \"today\"\n   ],\n   \"properties\": {\n     \"resultCode\": {\n       \"$id\": \"#/properties/resultCode\",\n       \"type\": \"string\",\n     },\n     \"resultMessage\": {\n       \"$id\": \"#/properties/resultMessage\",\n       \"type\": \"string\",\n     },\n     \"userInformation\": {\n       \"$id\": \"#/properties/userInformation\",\n       \"type\": \"object\",\n       \"title\": \"The Userinformation Schema\",\n       \"required\": [\n         \"username\",\n         \"passwordType\",\n         \"callSetNewPasswordType\"\n       ],\n       \"properties\": {\n         \"username\": {\n           \"$id\": \"#/properties/userInformation/properties/username\",\n           \"type\": \"string\",\n         },\n         \"passwordType\": {\n           \"$id\": \"#/properties/userInformation/properties/passwordType\",\n           \"type\": \"string\",\n         },\n         \"callSetNewPasswordType\": {\n           \"$id\": \"#/properties/userInformation/properties/callSetNewPasswordType\",\n           \"type\": \"boolean\",\n         }\n       }\n     },\n     \"today\": {\n       \"$id\": \"#/properties/today\",\n       \"type\": \"string\",\n     }\n   }\n };\n\npm.test('Schema is valid', function() {\n  pm.expect(tv4.validate(jsonData, schema)).to.be.true;\n});\n\n",
+			"preRequestScript": "",
+			"url": "{{url}}/CommonLogin/CheckUsername",
+			"responses": [],
+			"pathVariableData": [],
+			"queryParams": [],
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"type": "text"
+				}
+			],
+			"collection_id": "971c8985-e87d-5e4e-39c0-dd110276df92",
+			"folder": "16c5b9a1-d269-b702-ec79-25ef94de2761"
+		}
+	]
+}

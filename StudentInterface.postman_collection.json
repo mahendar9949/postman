@@ -1,0 +1,3221 @@
+{
+	"info": {
+		"_postman_id": "f9bf5edd-aa30-4eaf-8cb7-e46b43534572",
+		"name": "StudentInterface",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "JWT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8252cddd-f39a-4faa-8dd3-c16f123c9646",
+						"exec": [
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"   let responseheaders=pm.response.headers.get('JWT');\r",
+							"   console.log(responseheaders);\r",
+							"   pm.environment.set(\"token\",responseheaders);\r",
+							"});\r",
+							"//pm.environment.set(\"variable_key\", \"variable_value\");\r",
+							"//pm.globals.set(\"variable_key\", \"variable_value\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"username\": \"karn.test22_rearch\",\r\n\"passwordType\": \"text\",\r\n\"password\": \"karn.test22_rearch\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/CommonLogin/ValidatePassword",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"CommonLogin",
+						"ValidatePassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WriteToMindspark",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3490c5d0-9587-4b16-81c2-a372e5cff3c0",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"// test",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"pageID\": \"home\",\r\n        \"messageBody\": \"TestAhmedabad\"\r\n    }"
+				},
+				"url": {
+					"raw": "{{url}}/Student/WriteToMindspark",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"WriteToMindspark"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddToFavourities",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8252cddd-f39a-4faa-8dd3-c16f123c9646",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"// test",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Veryfy response body\", function () {",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"topicID\": \"59dc8e7c1c5edc24e4061139\",\r\n  \"conceptID\": \"concept1\",\r\n  \"contentInfo\": {\r\n    \"contentID\": \"Q1234\",\r\n    \"contentVersionID\": \"Q1234_en-IN_1\",\r\n    \"contentType\": \"question\",\r\n    \"questionType\": \"MCQ\",\r\n    \"revisionNum\": \"1\",\r\n    \"version\": \"1\",\r\n    \"langCode\": \"en-IN\",\r\n    \"dynamicParameters\": {}\r\n  }\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/Student/AddToFavourities",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"AddToFavourities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RemoveFromFavourities",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5cf15803-af20-4a43-b1b9-3de39cfe0e35",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"   ",
+							"    ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth",
+						"type": "text",
+						"value": "EISecret"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"contentId\": \"59dc8e7c1c5edc24e4061139\",\n    \"topicId\": \"concept1\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/Student/RemoveFromFavourities",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"RemoveFromFavourities"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "OpenWorksheet",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "jwt",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1cGlkIjoiNWM3NjdjNTY1NmRiNjk1MTkxM2JkYTI5IiwiY2xzIjoiNiIsImxhbmciOiJlbi1JTiIsImNhdCI6InN0dWRlbnQiLCJzaWQiOiI1ZGMxNTIzMDA3OThlZTM1NWQzYzgxZDkiLCJpblRpbWUiOiIyMDE5LTExLTA1IDE2OjEyOjU2Iiwic2Vzc1RpbWUiOjM2MDAsInVuIjoiZGVtby42ZDExIiwiaXMiOmZhbHNlLCJyZXRhaWwiOmZhbHNlLCJnaWQiOiI1Yzc2N2M0NzU2ZGI2OTUxOTEzYmQ5YjgiLCJvZmZsaW5lVXNlciI6IjEifQ.ygexzohK1Z6dYM00VRpMDoRrnNEyihQKOlZGx4V76gM",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"worksheetID\": \"5c7c002856db695e5c4175a6\",\r\n  \"mode\": \"start\"\r\n}"
+						},
+						"url": {
+							"raw": "https://mindspark.in/Mindspark/Framework/Mindspark/Student/OpenWorksheet?=",
+							"protocol": "https",
+							"host": [
+								"mindspark",
+								"in"
+							],
+							"path": [
+								"Mindspark",
+								"Framework",
+								"Mindspark",
+								"Student",
+								"OpenWorksheet"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": ""
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Tue, 05 Nov 2019 10:48:32 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "87"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.18 (Ubuntu)"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Expose-Headers",
+							"value": "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, JWT"
+						},
+						{
+							"key": "JWT",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1cGlkIjoiNWM3NjdjNTY1NmRiNjk1MTkxM2JkYTI5IiwiY2xzIjoiNiIsImxhbmciOiJlbi1JTiIsImNhdCI6InN0dWRlbnQiLCJzaWQiOiI1ZGMxNTIzMDA3OThlZTM1NWQzYzgxZDkiLCJpblRpbWUiOiIyMDE5LTExLTA1IDE2OjEyOjU2Iiwic2Vzc1RpbWUiOjM2MDAsInVuIjoiZGVtby42ZDExIiwiaXMiOmZhbHNlLCJyZXRhaWwiOmZhbHNlLCJnaWQiOiI1Yzc2N2M0NzU2ZGI2OTUxOTEzYmQ5YjgiLCJvZmZsaW5lVXNlciI6IjEifQ.ygexzohK1Z6dYM00VRpMDoRrnNEyihQKOlZGx4V76gM"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"resultCode\": \"C004\",\n    \"resultMessage\": \"redirect\",\n    \"redirectionData\": [],\n    \"redirectionCode\": \"ContentPage\"\n}"
+				}
+			]
+		},
+		{
+			"name": "OpenTopic",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "424c4983-1139-4fe9-94f4-93d360968dd2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							" var jsonData = pm.response.json();",
+							"pm.test(\"Your test name\", function () {",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C004\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"redirect\");",
+							"    ",
+							"});",
+							"",
+							"console.log(jsonData)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth",
+						"type": "text",
+						"value": "EISecret"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"topicID\": \"59d98cfa1c5edc24e402498d\",\n    \"mode\": \"revise\",\n    \"action\": \"revise\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/Student/OpenTopic",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"OpenTopic"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FetchFirstContent",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8252cddd-f39a-4faa-8dd3-c16f123c9646",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"// test",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Veryfy response body\", function () {",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"",
+							"//var response = pm.response.json();",
+							"",
+							"var contentId = jsonData.contentData.contentId;",
+							"",
+							"var contentVersionID = jsonData.contentData.data[0]._id;",
+							"",
+							"",
+							"pm.globals.set(\"contentId\", contentId);",
+							"",
+							"pm.globals.set(\"contentVersionID\", contentVersionID);",
+							"",
+							"console.log(contentId);",
+							"console.log(contentVersionID);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth",
+						"value": "EISecret",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/Student/FetchFirstContent",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"FetchFirstContent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SubmitQuestionAttempt",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8252cddd-f39a-4faa-8dd3-c16f123c9646",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"// test",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Veryfy response body\", function () {",
+							"   pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth",
+						"type": "text",
+						"value": "EISecret"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"isDynamic\": false,\n    \"contentID\": \"{{contentId}}\",\n    \"result\": \"fail\",\n    \"timeTaken\": 58,\n    \"userResponse\": {\n        \"mcqPattern\": {\n            \"type\": \"MCQ\",\n            \"userAnswer\": 1\n        }\n    },\n    \"userAttemptData\": {\n        \"hintTaken\": false,\n        \"trialCount\": 1,\n        \"trials\": [\n            {\n                \"userResponse\": {\n                    \"mcqPattern\": {\n                        \"type\": \"MCQ\",\n                        \"userAnswer\": 1\n                    }\n                },\n                \"timeTaken\": 58,\n                \"result\": false\n            }\n        ]\n    },\n    \"contentInfo\": {\n        \"contentID\": \"{{contentId}}\",\n        \"contentVersionID\": \"{{contentVersionID}}\",\n        \"contentType\": \"question\",\n        \"questionType\": \"MCQ\",\n        \"revisionNum\": \"1\",\n        \"langCode\": \"en\"\n    },\n    \"contentSeqNum\": 1,\n    \"mode\": \"revise\",\n    \"contentSubMode\": \"revise\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/Student/SubmitQuestionAttempt",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"SubmitQuestionAttempt"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetHomeDetails",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8252cddd-f39a-4faa-8dd3-c16f123c9646",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"// test",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Veryfy response body\", function () {",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth",
+						"type": "text",
+						"value": "EISecret"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/Student/GetHomeDetails",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"GetHomeDetails"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetMyDetails",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8252cddd-f39a-4faa-8dd3-c16f123c9646",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"// test",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Veryfy response body\", function () {",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth",
+						"type": "text",
+						"value": "EISecret"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/Student/GetMyDetails",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"GetMyDetails"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetMyWorksheets",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8252cddd-f39a-4faa-8dd3-c16f123c9646",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"// test",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Veryfy response body\", function () {",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth",
+						"type": "text",
+						"value": "EISecret"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/Student/GetMyWorksheets",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"GetMyWorksheets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetTopicDetails",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8252cddd-f39a-4faa-8dd3-c16f123c9646",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"// test",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Veryfy response body\", function () {",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth",
+						"type": "text",
+						"value": "EISecret"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"topicID\": \"{{contentId}}\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/Student/GetTopicDetails",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"GetTopicDetails"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetTopicTrail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8252cddd-f39a-4faa-8dd3-c16f123c9646",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"// test",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Veryfy response body\", function () {",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth",
+						"type": "text",
+						"value": "EISecret"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"startFrom\": 0,\r\n  \"limit\": 20,\r\n  \"topicId\": \"{{contentId}}\",\r\n  \"index\": 2\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/Student/GetTopicTrail",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"GetTopicTrail"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GiveWorksheetReward",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8252cddd-f39a-4faa-8dd3-c16f123c9646",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"// test",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Veryfy response body\", function () {",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth",
+						"type": "text",
+						"value": "EISecret"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"limit\": \"1000\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/Student/GiveWorksheetReward",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"GiveWorksheetReward"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "QuitTopicHigherLevel",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8252cddd-f39a-4faa-8dd3-c16f123c9646",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"// test",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Veryfy response body\", function () {",
+							"   pm.expect(jsonData.resultCode).to.eql(\"C004\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"redirect\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth",
+						"type": "text",
+						"value": "EISecret"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/Student/QuitTopicHigherLevel",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"QuitTopicHigherLevel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ListActivity",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2d9bad66-db90-41db-8587-e93414e7d287",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							" var jsonData = pm.response.json();",
+							"pm.test(\"Your test name\", function () {",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"    ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth",
+						"type": "text",
+						"value": "EISecret"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/Student/ListActivity",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"ListActivity"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OpenActivity",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8252cddd-f39a-4faa-8dd3-c16f123c9646",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"// test",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Veryfy response body\", function () {",
+							"   pm.expect(jsonData.resultCode).to.eql(\"C004\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"redirect\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth",
+						"type": "text",
+						"value": "EISecret"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"activityID\": \"59dc86a61c5edc24e405d02c\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/Student/OpenActivity",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"OpenActivity"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateMyPassword by passing wrong Current PW",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5186d8d3-ac5a-4e00-a73a-3f12d3b3d61b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    ",
+							"",
+							"pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Your test name\", ",
+							"",
+							"function () {",
+							"    var jsonData = pm.response.json();",
+							"    ",
+							"",
+							"pm.expect(jsonData.resultCode).to.eql(\"CL001\");",
+							"    pm.expect",
+							"",
+							"(jsonData.resultMessage).to.eql(\"password mismatch\");",
+							"    pm.expect",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth",
+						"type": "text",
+						"value": "EISecret"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"passwordType\": \"text\",\r\n  \"currentPassword\": \"sush2\",\r\n  \"newPassword\": \"sush\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/Student/UpdateMyPassword",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"UpdateMyPassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CloseContent",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5186d8d3-ac5a-4e00-a73a-3f12d3b3d61b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"// test",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Veryfy response body\", function () {",
+							"   pm.expect(jsonData.resultCode).to.eql(\"C004\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"redirect\");",
+							"    pm.expect(jsonData.redirectionCode).to.eql(\"TopicSessionReport\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth",
+						"type": "text",
+						"value": "EISecret"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userTriggered\": false,\r\n  \"endTopicFlag\": false,\r\n  \"endTopicHigherLevel\": true,\r\n  \"sessionTimeExceededFlag\": false\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/Student/CloseContent",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"CloseContent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetMailbox",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5186d8d3-ac5a-4e00-a73a-3f12d3b3d61b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"// test",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Veryfy response body\", function () {",
+							"   pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth",
+						"type": "text",
+						"value": "EISecret"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/Student/GetMailbox",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"GetMailbox"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetMyPasswordType",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2d9bad66-db90-41db-8587-e93414e7d287",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							" var jsonData = pm.response.json();",
+							"pm.test(\"Your test name\", function () {",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"    pm.expect(jsonData.passwordType).to.eql(\"text\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Auth",
+						"value": "EISecret",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/Student/GetMyPasswordType",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"GetMyPasswordType"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetNotifications",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2d9bad66-db90-41db-8587-e93414e7d287",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							" var jsonData = pm.response.json();",
+							"pm.test(\"Your test name\", function () {",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"    ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth",
+						"type": "text",
+						"value": "EISecret"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/Student/GetNotifications",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"GetNotifications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SaveRating",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2dd3353a-3394-4976-800b-741de2d3f50f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Auth",
+						"value": "EISecret",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"rating\": 2,\r\n  \"commentID\": \"5dbc1005e6300f2db45b751f\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/Student/SaveRating",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"SaveRating"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateProfilePic",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Auth",
+						"value": "EISecret",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "avatarFile",
+							"type": "file",
+							"src": "/D:/New folder/My_Details/Prakash_Kumar_Pic.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/Student/UpdateProfilePic",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"UpdateProfilePic"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "UpdateProfilePic",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "jwt",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1cGlkIjoiNWM3NjdjNTY1NmRiNjk1MTkxM2JkYTI5IiwiY2xzIjoiNiIsImxhbmciOiJlbi1JTiIsImNhdCI6InN0dWRlbnQiLCJzaWQiOiI1ZGNhNDliNmQ3NmQ4YzIxMjk3MzViYjQiLCJpblRpbWUiOiIyMDE5LTExLTEyIDExOjI3OjEwIiwic2Vzc1RpbWUiOjM2MDAsInVuIjoiZGVtby42ZDExIiwiaXMiOnRydWUsInJldGFpbCI6ZmFsc2UsImdpZCI6IjVjNzY3YzQ3NTZkYjY5NTE5MTNiZDliOCIsIm9mZmxpbmVVc2VyIjoiMSJ9.aUo-IyTwUVI2xYKs1CippkleABZ4NxX4QTWnCM2_WIk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "avatarFile",
+									"type": "file",
+									"src": "/C:/Users/USER/Pictures/Navratri.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://mindspark.in/Mindspark/Framework/Mindspark/Student/UpdateProfilePic",
+							"protocol": "https",
+							"host": [
+								"mindspark",
+								"in"
+							],
+							"path": [
+								"Mindspark",
+								"Framework",
+								"Mindspark",
+								"Student",
+								"UpdateProfilePic"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Tue, 12 Nov 2019 06:12:52 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "161"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.18 (Ubuntu)"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Expose-Headers",
+							"value": "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, JWT"
+						},
+						{
+							"key": "JWT",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1cGlkIjoiNWM3NjdjNTY1NmRiNjk1MTkxM2JkYTI5IiwiY2xzIjoiNiIsImxhbmciOiJlbi1JTiIsImNhdCI6InN0dWRlbnQiLCJzaWQiOiI1ZGNhNDliNmQ3NmQ4YzIxMjk3MzViYjQiLCJpblRpbWUiOiIyMDE5LTExLTEyIDExOjI3OjEwIiwic2Vzc1RpbWUiOjM2MDAsInVuIjoiZGVtby42ZDExIiwiaXMiOnRydWUsInJldGFpbCI6ZmFsc2UsImdpZCI6IjVjNzY3YzQ3NTZkYjY5NTE5MTNiZDliOCIsIm9mZmxpbmVVc2VyIjoiMSJ9.aUo-IyTwUVI2xYKs1CippkleABZ4NxX4QTWnCM2_WIk"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"resultCode\": \"C001\",\n    \"resultMessage\": \"success\",\n    \"avatar\": \"https://mindspark-rearch-assets.s3.amazonaws.com/profileImages/5c767c5656db6951913bda29.jpg?t=1573539171\"\n}"
+				}
+			]
+		},
+		{
+			"name": "ContentErrorLog",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00067e94-c418-4df7-84f6-e9a7cb302ec7",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth",
+						"type": "text",
+						"value": "EISecret"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"contentID\": \"59dc8e7c1c5edc24e4061139\",\r\n  \"contentType\": \"question\",\r\n  \"imageName\": \"test.jpg\",\r\n  \"imagePath\": \"https://defaultImage.jpg\",\r\n  \"typeErrorLog\": \"imageNotLoading\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/Student/ContentErrorLog",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"ContentErrorLog"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetFavouritesList",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00067e94-c418-4df7-84f6-e9a7cb302ec7",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"    ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth",
+						"type": "text",
+						"value": "EISecret"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"startFrom\": 0,\r\n  \"limit\": 20,\r\n  \"topicID\": \"59dc8e7c1c5edc24e4061139\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/Student/GetFavouritesList",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"GetFavouritesList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetMenuList",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00067e94-c418-4df7-84f6-e9a7cb302ec7",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"    ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth",
+						"type": "text",
+						"value": "EISecret"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"UPID\": 0,\r\n  \"groupID\": 20\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/Student/GetMenuList",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"GetMenuList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetMyProgress",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00067e94-c418-4df7-84f6-e9a7cb302ec7",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"    ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth",
+						"type": "text",
+						"value": "EISecret"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/Student/GetMyProgress",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"GetMyProgress"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetRewardInfo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00067e94-c418-4df7-84f6-e9a7cb302ec7",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"    ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth",
+						"type": "text",
+						"value": "EISecret"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"startFrom\": 0,\r\n  \"limit\": 20,\r\n  \"topicID\": \"59dc8e7c1c5edc24e4061139\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/Student/GetRewardInfo",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"GetRewardInfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetTopicSessionReport",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00067e94-c418-4df7-84f6-e9a7cb302ec7",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"    ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth",
+						"type": "text",
+						"value": "EISecret"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"topicID\": \"5e2864e974d83d06360285cf\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/Student/GetTopicSessionReport",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"GetTopicSessionReport"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OpenWorksheet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5cf15803-af20-4a43-b1b9-3de39cfe0e35",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"pm.expect(jsonData.resultCode).to.eql(\"C004\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"redirect\");",
+							"    pm.expect(jsonData.redirectionCode).to.eql(\"ContentPage\");",
+							"    ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Auth",
+						"value": "EISecret",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"worksheetID\": \"5c7c002856db695e5c4175a6\",\r\n  \"mode\": \"start\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/Student/OpenWorksheet",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"OpenWorksheet"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "OpenWorksheet",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "jwt",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1cGlkIjoiNWM3NjdjNTY1NmRiNjk1MTkxM2JkYTI5IiwiY2xzIjoiNiIsImxhbmciOiJlbi1JTiIsImNhdCI6InN0dWRlbnQiLCJzaWQiOiI1ZGMxNTIzMDA3OThlZTM1NWQzYzgxZDkiLCJpblRpbWUiOiIyMDE5LTExLTA1IDE2OjEyOjU2Iiwic2Vzc1RpbWUiOjM2MDAsInVuIjoiZGVtby42ZDExIiwiaXMiOmZhbHNlLCJyZXRhaWwiOmZhbHNlLCJnaWQiOiI1Yzc2N2M0NzU2ZGI2OTUxOTEzYmQ5YjgiLCJvZmZsaW5lVXNlciI6IjEifQ.ygexzohK1Z6dYM00VRpMDoRrnNEyihQKOlZGx4V76gM",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"worksheetID\": \"5c7c002856db695e5c4175a6\",\r\n  \"mode\": \"start\"\r\n}"
+						},
+						"url": {
+							"raw": "https://mindspark.in/Mindspark/Framework/Mindspark/Student/OpenWorksheet?=",
+							"protocol": "https",
+							"host": [
+								"mindspark",
+								"in"
+							],
+							"path": [
+								"Mindspark",
+								"Framework",
+								"Mindspark",
+								"Student",
+								"OpenWorksheet"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": ""
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Tue, 05 Nov 2019 10:48:32 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "87"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.18 (Ubuntu)"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Expose-Headers",
+							"value": "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, JWT"
+						},
+						{
+							"key": "JWT",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1cGlkIjoiNWM3NjdjNTY1NmRiNjk1MTkxM2JkYTI5IiwiY2xzIjoiNiIsImxhbmciOiJlbi1JTiIsImNhdCI6InN0dWRlbnQiLCJzaWQiOiI1ZGMxNTIzMDA3OThlZTM1NWQzYzgxZDkiLCJpblRpbWUiOiIyMDE5LTExLTA1IDE2OjEyOjU2Iiwic2Vzc1RpbWUiOjM2MDAsInVuIjoiZGVtby42ZDExIiwiaXMiOmZhbHNlLCJyZXRhaWwiOmZhbHNlLCJnaWQiOiI1Yzc2N2M0NzU2ZGI2OTUxOTEzYmQ5YjgiLCJvZmZsaW5lVXNlciI6IjEifQ.ygexzohK1Z6dYM00VRpMDoRrnNEyihQKOlZGx4V76gM"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"resultCode\": \"C004\",\n    \"resultMessage\": \"redirect\",\n    \"redirectionData\": [],\n    \"redirectionCode\": \"ContentPage\"\n}"
+				}
+			]
+		},
+		{
+			"name": "StartTopicHigherLevel",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d97a1574-9392-47ee-b432-c7d848a323b8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    ",
+							"",
+							"pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Your test name\", ",
+							"",
+							"function () {",
+							"    var jsonData = pm.response.json();",
+							"    ",
+							"",
+							"pm.expect(jsonData.resultCode).to.eql(\"C004\");",
+							"    pm.expect",
+							"",
+							"(jsonData.resultMesssage).to.eql(\"redirect\");",
+							"    pm.expect",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Auth",
+						"value": "EISecret",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"topicID\": \"5c7cfd3bd76d8c29671b54bc\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/Student/StartTopicHigherLevel",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"StartTopicHigherLevel"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "StartTopicHigherLevel",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "jwt",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1cGlkIjoiNWM3NjdjNTY1NmRiNjk1MTkxM2JkYTI5IiwiY2xzIjoiNiIsImxhbmciOiJlbi1JTiIsImNhdCI6InN0dWRlbnQiLCJzaWQiOiI1ZGMwMWMyYjMxOTc0YzNmNzk2YTZiZjkiLCJpblRpbWUiOiIyMDE5LTExLTA0IDE4OjEwOjExIiwic2Vzc1RpbWUiOjM2MDAsInVuIjoiZGVtby42ZDExIiwiaXMiOmZhbHNlLCJyZXRhaWwiOmZhbHNlLCJnaWQiOiI1Yzc2N2M0NzU2ZGI2OTUxOTEzYmQ5YjgiLCJvZmZsaW5lVXNlciI6IjEifQ.K7DE3hkJXLYQP-P0fKZGHGIq8e3-TnLzv52w5dpSiRg",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"topicID\": \"5d1b0daa86abd45d1c7b40ea\"\n}"
+						},
+						"url": {
+							"raw": "https://mindspark.in/Mindspark/Framework/Mindspark/Student/StartTopicHigherLevel",
+							"protocol": "https",
+							"host": [
+								"mindspark",
+								"in"
+							],
+							"path": [
+								"Mindspark",
+								"Framework",
+								"Mindspark",
+								"Student",
+								"StartTopicHigherLevel"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 04 Nov 2019 12:52:32 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "78"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.18 (Ubuntu)"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Expose-Headers",
+							"value": "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, JWT"
+						},
+						{
+							"key": "JWT",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1cGlkIjoiNWM3NjdjNTY1NmRiNjk1MTkxM2JkYTI5IiwiY2xzIjoiNiIsImxhbmciOiJlbi1JTiIsImNhdCI6InN0dWRlbnQiLCJzaWQiOiI1ZGMwMWMyYjMxOTc0YzNmNzk2YTZiZjkiLCJpblRpbWUiOiIyMDE5LTExLTA0IDE4OjEwOjExIiwic2Vzc1RpbWUiOjM2MDAsInVuIjoiZGVtby42ZDExIiwiaXMiOmZhbHNlLCJyZXRhaWwiOmZhbHNlLCJnaWQiOiI1Yzc2N2M0NzU2ZGI2OTUxOTEzYmQ5YjgiLCJvZmZsaW5lVXNlciI6IjEifQ.K7DE3hkJXLYQP-P0fKZGHGIq8e3-TnLzv52w5dpSiRg"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"resultCode\": \"C004\",\n    \"resultMesssage\": \"redirect\",\n    \"redirectionCode\": \"ContentPage\"\n}"
+				}
+			]
+		},
+		{
+			"name": "GetHelp",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d97a1574-9392-47ee-b432-c7d848a323b8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"    ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth",
+						"type": "text",
+						"value": "EISecret"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/Student/GetHelp",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"GetHelp"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "StartTopicHigherLevel",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "jwt",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1cGlkIjoiNWM3NjdjNTY1NmRiNjk1MTkxM2JkYTI5IiwiY2xzIjoiNiIsImxhbmciOiJlbi1JTiIsImNhdCI6InN0dWRlbnQiLCJzaWQiOiI1ZGMwMWMyYjMxOTc0YzNmNzk2YTZiZjkiLCJpblRpbWUiOiIyMDE5LTExLTA0IDE4OjEwOjExIiwic2Vzc1RpbWUiOjM2MDAsInVuIjoiZGVtby42ZDExIiwiaXMiOmZhbHNlLCJyZXRhaWwiOmZhbHNlLCJnaWQiOiI1Yzc2N2M0NzU2ZGI2OTUxOTEzYmQ5YjgiLCJvZmZsaW5lVXNlciI6IjEifQ.K7DE3hkJXLYQP-P0fKZGHGIq8e3-TnLzv52w5dpSiRg",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"topicID\": \"5d1b0daa86abd45d1c7b40ea\"\n}"
+						},
+						"url": {
+							"raw": "https://mindspark.in/Mindspark/Framework/Mindspark/Student/StartTopicHigherLevel",
+							"protocol": "https",
+							"host": [
+								"mindspark",
+								"in"
+							],
+							"path": [
+								"Mindspark",
+								"Framework",
+								"Mindspark",
+								"Student",
+								"StartTopicHigherLevel"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 04 Nov 2019 12:52:32 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "78"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.18 (Ubuntu)"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Expose-Headers",
+							"value": "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, JWT"
+						},
+						{
+							"key": "JWT",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1cGlkIjoiNWM3NjdjNTY1NmRiNjk1MTkxM2JkYTI5IiwiY2xzIjoiNiIsImxhbmciOiJlbi1JTiIsImNhdCI6InN0dWRlbnQiLCJzaWQiOiI1ZGMwMWMyYjMxOTc0YzNmNzk2YTZiZjkiLCJpblRpbWUiOiIyMDE5LTExLTA0IDE4OjEwOjExIiwic2Vzc1RpbWUiOjM2MDAsInVuIjoiZGVtby42ZDExIiwiaXMiOmZhbHNlLCJyZXRhaWwiOmZhbHNlLCJnaWQiOiI1Yzc2N2M0NzU2ZGI2OTUxOTEzYmQ5YjgiLCJvZmZsaW5lVXNlciI6IjEifQ.K7DE3hkJXLYQP-P0fKZGHGIq8e3-TnLzv52w5dpSiRg"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"resultCode\": \"C004\",\n    \"resultMesssage\": \"redirect\",\n    \"redirectionCode\": \"ContentPage\"\n}"
+				}
+			]
+		},
+		{
+			"name": "GetMessageTrail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d97a1574-9392-47ee-b432-c7d848a323b8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"    ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth",
+						"type": "text",
+						"value": "EISecret"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"messageID\": \"5e2ad2b774d83d4d3c113300\",\r\n\"type\": \"comment\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/Student/GetMessageTrail",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"GetMessageTrail"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "StartTopicHigherLevel",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "jwt",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1cGlkIjoiNWM3NjdjNTY1NmRiNjk1MTkxM2JkYTI5IiwiY2xzIjoiNiIsImxhbmciOiJlbi1JTiIsImNhdCI6InN0dWRlbnQiLCJzaWQiOiI1ZGMwMWMyYjMxOTc0YzNmNzk2YTZiZjkiLCJpblRpbWUiOiIyMDE5LTExLTA0IDE4OjEwOjExIiwic2Vzc1RpbWUiOjM2MDAsInVuIjoiZGVtby42ZDExIiwiaXMiOmZhbHNlLCJyZXRhaWwiOmZhbHNlLCJnaWQiOiI1Yzc2N2M0NzU2ZGI2OTUxOTEzYmQ5YjgiLCJvZmZsaW5lVXNlciI6IjEifQ.K7DE3hkJXLYQP-P0fKZGHGIq8e3-TnLzv52w5dpSiRg",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"topicID\": \"5d1b0daa86abd45d1c7b40ea\"\n}"
+						},
+						"url": {
+							"raw": "https://mindspark.in/Mindspark/Framework/Mindspark/Student/StartTopicHigherLevel",
+							"protocol": "https",
+							"host": [
+								"mindspark",
+								"in"
+							],
+							"path": [
+								"Mindspark",
+								"Framework",
+								"Mindspark",
+								"Student",
+								"StartTopicHigherLevel"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 04 Nov 2019 12:52:32 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "78"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.18 (Ubuntu)"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Expose-Headers",
+							"value": "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, JWT"
+						},
+						{
+							"key": "JWT",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1cGlkIjoiNWM3NjdjNTY1NmRiNjk1MTkxM2JkYTI5IiwiY2xzIjoiNiIsImxhbmciOiJlbi1JTiIsImNhdCI6InN0dWRlbnQiLCJzaWQiOiI1ZGMwMWMyYjMxOTc0YzNmNzk2YTZiZjkiLCJpblRpbWUiOiIyMDE5LTExLTA0IDE4OjEwOjExIiwic2Vzc1RpbWUiOjM2MDAsInVuIjoiZGVtby42ZDExIiwiaXMiOmZhbHNlLCJyZXRhaWwiOmZhbHNlLCJnaWQiOiI1Yzc2N2M0NzU2ZGI2OTUxOTEzYmQ5YjgiLCJvZmZsaW5lVXNlciI6IjEifQ.K7DE3hkJXLYQP-P0fKZGHGIq8e3-TnLzv52w5dpSiRg"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"resultCode\": \"C004\",\n    \"resultMesssage\": \"redirect\",\n    \"redirectionCode\": \"ContentPage\"\n}"
+				}
+			]
+		},
+		{
+			"name": "GetMyTopics",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d97a1574-9392-47ee-b432-c7d848a323b8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"    ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth",
+						"type": "text",
+						"value": "EISecret"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/Student/GetMyTopics",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"GetMyTopics"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "StartTopicHigherLevel",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "jwt",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1cGlkIjoiNWM3NjdjNTY1NmRiNjk1MTkxM2JkYTI5IiwiY2xzIjoiNiIsImxhbmciOiJlbi1JTiIsImNhdCI6InN0dWRlbnQiLCJzaWQiOiI1ZGMwMWMyYjMxOTc0YzNmNzk2YTZiZjkiLCJpblRpbWUiOiIyMDE5LTExLTA0IDE4OjEwOjExIiwic2Vzc1RpbWUiOjM2MDAsInVuIjoiZGVtby42ZDExIiwiaXMiOmZhbHNlLCJyZXRhaWwiOmZhbHNlLCJnaWQiOiI1Yzc2N2M0NzU2ZGI2OTUxOTEzYmQ5YjgiLCJvZmZsaW5lVXNlciI6IjEifQ.K7DE3hkJXLYQP-P0fKZGHGIq8e3-TnLzv52w5dpSiRg",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"topicID\": \"5d1b0daa86abd45d1c7b40ea\"\n}"
+						},
+						"url": {
+							"raw": "https://mindspark.in/Mindspark/Framework/Mindspark/Student/StartTopicHigherLevel",
+							"protocol": "https",
+							"host": [
+								"mindspark",
+								"in"
+							],
+							"path": [
+								"Mindspark",
+								"Framework",
+								"Mindspark",
+								"Student",
+								"StartTopicHigherLevel"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 04 Nov 2019 12:52:32 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "78"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.18 (Ubuntu)"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Expose-Headers",
+							"value": "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, JWT"
+						},
+						{
+							"key": "JWT",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1cGlkIjoiNWM3NjdjNTY1NmRiNjk1MTkxM2JkYTI5IiwiY2xzIjoiNiIsImxhbmciOiJlbi1JTiIsImNhdCI6InN0dWRlbnQiLCJzaWQiOiI1ZGMwMWMyYjMxOTc0YzNmNzk2YTZiZjkiLCJpblRpbWUiOiIyMDE5LTExLTA0IDE4OjEwOjExIiwic2Vzc1RpbWUiOjM2MDAsInVuIjoiZGVtby42ZDExIiwiaXMiOmZhbHNlLCJyZXRhaWwiOmZhbHNlLCJnaWQiOiI1Yzc2N2M0NzU2ZGI2OTUxOTEzYmQ5YjgiLCJvZmZsaW5lVXNlciI6IjEifQ.K7DE3hkJXLYQP-P0fKZGHGIq8e3-TnLzv52w5dpSiRg"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"resultCode\": \"C004\",\n    \"resultMesssage\": \"redirect\",\n    \"redirectionCode\": \"ContentPage\"\n}"
+				}
+			]
+		},
+		{
+			"name": "GetTopicSessionTrail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d97a1574-9392-47ee-b432-c7d848a323b8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"    ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth",
+						"type": "text",
+						"value": "EISecret"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"startFrom\": 0,\r\n  \"limit\": 20,\r\n  \"index\": 2,\r\n  \"topicId\": \"59dc8e7c1c5edc24e4061139\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/Student/GetTopicSessionTrail",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"GetTopicSessionTrail"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "StartTopicHigherLevel",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "jwt",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1cGlkIjoiNWM3NjdjNTY1NmRiNjk1MTkxM2JkYTI5IiwiY2xzIjoiNiIsImxhbmciOiJlbi1JTiIsImNhdCI6InN0dWRlbnQiLCJzaWQiOiI1ZGMwMWMyYjMxOTc0YzNmNzk2YTZiZjkiLCJpblRpbWUiOiIyMDE5LTExLTA0IDE4OjEwOjExIiwic2Vzc1RpbWUiOjM2MDAsInVuIjoiZGVtby42ZDExIiwiaXMiOmZhbHNlLCJyZXRhaWwiOmZhbHNlLCJnaWQiOiI1Yzc2N2M0NzU2ZGI2OTUxOTEzYmQ5YjgiLCJvZmZsaW5lVXNlciI6IjEifQ.K7DE3hkJXLYQP-P0fKZGHGIq8e3-TnLzv52w5dpSiRg",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"topicID\": \"5d1b0daa86abd45d1c7b40ea\"\n}"
+						},
+						"url": {
+							"raw": "https://mindspark.in/Mindspark/Framework/Mindspark/Student/StartTopicHigherLevel",
+							"protocol": "https",
+							"host": [
+								"mindspark",
+								"in"
+							],
+							"path": [
+								"Mindspark",
+								"Framework",
+								"Mindspark",
+								"Student",
+								"StartTopicHigherLevel"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 04 Nov 2019 12:52:32 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "78"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.18 (Ubuntu)"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Expose-Headers",
+							"value": "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, JWT"
+						},
+						{
+							"key": "JWT",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1cGlkIjoiNWM3NjdjNTY1NmRiNjk1MTkxM2JkYTI5IiwiY2xzIjoiNiIsImxhbmciOiJlbi1JTiIsImNhdCI6InN0dWRlbnQiLCJzaWQiOiI1ZGMwMWMyYjMxOTc0YzNmNzk2YTZiZjkiLCJpblRpbWUiOiIyMDE5LTExLTA0IDE4OjEwOjExIiwic2Vzc1RpbWUiOjM2MDAsInVuIjoiZGVtby42ZDExIiwiaXMiOmZhbHNlLCJyZXRhaWwiOmZhbHNlLCJnaWQiOiI1Yzc2N2M0NzU2ZGI2OTUxOTEzYmQ5YjgiLCJvZmZsaW5lVXNlciI6IjEifQ.K7DE3hkJXLYQP-P0fKZGHGIq8e3-TnLzv52w5dpSiRg"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"resultCode\": \"C004\",\n    \"resultMesssage\": \"redirect\",\n    \"redirectionCode\": \"ContentPage\"\n}"
+				}
+			]
+		},
+		{
+			"name": "ReplyToMessage",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d97a1574-9392-47ee-b432-c7d848a323b8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"    ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth",
+						"type": "text",
+						"value": "EISecret"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"replyBody\": \"dgv\",\r\n    \"messageID\":\"5e20615274d83d3ea93001e4\"\r\n   \r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/Student/ReplyToMessage",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"ReplyToMessage"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "StartTopicHigherLevel",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "jwt",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1cGlkIjoiNWM3NjdjNTY1NmRiNjk1MTkxM2JkYTI5IiwiY2xzIjoiNiIsImxhbmciOiJlbi1JTiIsImNhdCI6InN0dWRlbnQiLCJzaWQiOiI1ZGMwMWMyYjMxOTc0YzNmNzk2YTZiZjkiLCJpblRpbWUiOiIyMDE5LTExLTA0IDE4OjEwOjExIiwic2Vzc1RpbWUiOjM2MDAsInVuIjoiZGVtby42ZDExIiwiaXMiOmZhbHNlLCJyZXRhaWwiOmZhbHNlLCJnaWQiOiI1Yzc2N2M0NzU2ZGI2OTUxOTEzYmQ5YjgiLCJvZmZsaW5lVXNlciI6IjEifQ.K7DE3hkJXLYQP-P0fKZGHGIq8e3-TnLzv52w5dpSiRg",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"topicID\": \"5d1b0daa86abd45d1c7b40ea\"\n}"
+						},
+						"url": {
+							"raw": "https://mindspark.in/Mindspark/Framework/Mindspark/Student/StartTopicHigherLevel",
+							"protocol": "https",
+							"host": [
+								"mindspark",
+								"in"
+							],
+							"path": [
+								"Mindspark",
+								"Framework",
+								"Mindspark",
+								"Student",
+								"StartTopicHigherLevel"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 04 Nov 2019 12:52:32 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "78"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.18 (Ubuntu)"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Expose-Headers",
+							"value": "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, JWT"
+						},
+						{
+							"key": "JWT",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1cGlkIjoiNWM3NjdjNTY1NmRiNjk1MTkxM2JkYTI5IiwiY2xzIjoiNiIsImxhbmciOiJlbi1JTiIsImNhdCI6InN0dWRlbnQiLCJzaWQiOiI1ZGMwMWMyYjMxOTc0YzNmNzk2YTZiZjkiLCJpblRpbWUiOiIyMDE5LTExLTA0IDE4OjEwOjExIiwic2Vzc1RpbWUiOjM2MDAsInVuIjoiZGVtby42ZDExIiwiaXMiOmZhbHNlLCJyZXRhaWwiOmZhbHNlLCJnaWQiOiI1Yzc2N2M0NzU2ZGI2OTUxOTEzYmQ5YjgiLCJvZmZsaW5lVXNlciI6IjEifQ.K7DE3hkJXLYQP-P0fKZGHGIq8e3-TnLzv52w5dpSiRg"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"resultCode\": \"C004\",\n    \"resultMesssage\": \"redirect\",\n    \"redirectionCode\": \"ContentPage\"\n}"
+				}
+			]
+		},
+		{
+			"name": "SubmitActivityAttempt",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d97a1574-9392-47ee-b432-c7d848a323b8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"pm.expect(jsonData.resultCode).to.eql(\"C004\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"redirect\");",
+							"    ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth",
+						"type": "text",
+						"value": "EISecret"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"contentID\": \"59dc8e7c1c5edc24e4061139\",\r\n  \"contentSeqNum\": 3,\r\n  \"result\": \"pass\",\r\n  \"timeTaken\": 45,\r\n  \"mode\":\"learn\",\r\n  \"userAttemptData\": {\r\n    \"completed\": true,\r\n    \"skipped\": false,\r\n    \"timeTaken\": 100,\r\n    \"score\": 50,\r\n    \"currentLevel\": \"\",\r\n    \"levelWiseData\": [\r\n      {\r\n        \"level\": \"L1\",\r\n        \"timeTaken\": 34,\r\n        \"status\": true,\r\n        \"score\": 20\r\n      },\r\n      {\r\n        \"level\": \"L2\",\r\n        \"timeTaken\": 34,\r\n        \"status\": true,\r\n        \"score\": 20\r\n      },\r\n      {\r\n        \"level\": \"L3\",\r\n        \"timeTaken\": 34,\r\n        \"status\": false,\r\n        \"score\": 20\r\n      },\r\n      {\r\n        \"level\": \"L4\",\r\n        \"timeTaken\": 0,\r\n        \"status\": false,\r\n        \"score\": 0\r\n      }\r\n    ],\r\n    \"extraParameters\": {},\r\n    \"_comment\": \"only game is allowed to skip.  If the user chooses to skip even then the response is captured. extraParamters are dynamic data types. Please send whatever in there after the activity evaluation\"\r\n  },\r\n  \"contentInfo\": {\r\n    \"contentID\": \"59dc8e7c1c5edc24e4061139\",\r\n    \"contentVersionID\": \"59dc8e7c1c5edc24e4061139_en_1\",\r\n    \"contentType\": \"activity\",\r\n    \"activityType\": \"game\",\r\n    \"revisionNum\": \"1\",\r\n    \"version\": \"1\",\r\n    \"langCode\": \"en-IN\"\r\n  }\r\n  \r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{url}}/Student/SubmitActivityAttempt",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"SubmitActivityAttempt"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "StartTopicHigherLevel",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "jwt",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1cGlkIjoiNWM3NjdjNTY1NmRiNjk1MTkxM2JkYTI5IiwiY2xzIjoiNiIsImxhbmciOiJlbi1JTiIsImNhdCI6InN0dWRlbnQiLCJzaWQiOiI1ZGMwMWMyYjMxOTc0YzNmNzk2YTZiZjkiLCJpblRpbWUiOiIyMDE5LTExLTA0IDE4OjEwOjExIiwic2Vzc1RpbWUiOjM2MDAsInVuIjoiZGVtby42ZDExIiwiaXMiOmZhbHNlLCJyZXRhaWwiOmZhbHNlLCJnaWQiOiI1Yzc2N2M0NzU2ZGI2OTUxOTEzYmQ5YjgiLCJvZmZsaW5lVXNlciI6IjEifQ.K7DE3hkJXLYQP-P0fKZGHGIq8e3-TnLzv52w5dpSiRg",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"topicID\": \"5d1b0daa86abd45d1c7b40ea\"\n}"
+						},
+						"url": {
+							"raw": "https://mindspark.in/Mindspark/Framework/Mindspark/Student/StartTopicHigherLevel",
+							"protocol": "https",
+							"host": [
+								"mindspark",
+								"in"
+							],
+							"path": [
+								"Mindspark",
+								"Framework",
+								"Mindspark",
+								"Student",
+								"StartTopicHigherLevel"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 04 Nov 2019 12:52:32 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "78"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.18 (Ubuntu)"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Expose-Headers",
+							"value": "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, JWT"
+						},
+						{
+							"key": "JWT",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1cGlkIjoiNWM3NjdjNTY1NmRiNjk1MTkxM2JkYTI5IiwiY2xzIjoiNiIsImxhbmciOiJlbi1JTiIsImNhdCI6InN0dWRlbnQiLCJzaWQiOiI1ZGMwMWMyYjMxOTc0YzNmNzk2YTZiZjkiLCJpblRpbWUiOiIyMDE5LTExLTA0IDE4OjEwOjExIiwic2Vzc1RpbWUiOjM2MDAsInVuIjoiZGVtby42ZDExIiwiaXMiOmZhbHNlLCJyZXRhaWwiOmZhbHNlLCJnaWQiOiI1Yzc2N2M0NzU2ZGI2OTUxOTEzYmQ5YjgiLCJvZmZsaW5lVXNlciI6IjEifQ.K7DE3hkJXLYQP-P0fKZGHGIq8e3-TnLzv52w5dpSiRg"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"resultCode\": \"C004\",\n    \"resultMesssage\": \"redirect\",\n    \"redirectionCode\": \"ContentPage\"\n}"
+				}
+			]
+		},
+		{
+			"name": "UpdateMyDetails",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dbfa92de-0eeb-47a6-bd96-c2bd969850ac",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Auth",
+						"value": "EISecret",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"fatherName\": \"akhil\",\r\n  \"motherName\": \"mona\",\r\n  \"parentEmail\": \"akhil@test.com\",\r\n  \"parentMobile\": \"9573153500\",\r\n  \"parentISD\": \"+91\",\r\n  \"dateOfBirth\": \"2006-11-01\",\r\n  \"securityQuestion\": \"SQ1\",\r\n  \"securityAns\": \"bangalore\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/Student/UpdateMyDetails",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"UpdateMyDetails"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WriteToMindspark",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dbfa92de-0eeb-47a6-bd96-c2bd969850ac",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth",
+						"type": "text",
+						"value": "EISecret"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"messageBody\": \"I don't understand this question\",\n  \"pageID\": \"contentPageNumber\",\n  \"contentID\": \"59dc8e7c1c5edc24e4061139\",\n  \"contentDetails\": {\n    \"contentType\": \"question\",\n    \"context\": \"en-IN\",\n    \"version\": \"1.04\",\n    \"contentSeqNum\": 4,\n    \"contentAttempted\": true,\n    \"dynamicParameters\": [\n      \"string\"\n    ]\n  },\n  \"attachments\": [\n    \"file1.jpg\",\n    \"file2.png\"\n  ]\n}"
+				},
+				"url": {
+					"raw": "{{url}}/Student/WriteToMindspark",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Student",
+						"WriteToMindspark"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

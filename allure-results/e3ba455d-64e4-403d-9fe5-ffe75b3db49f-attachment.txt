@@ -1,0 +1,7 @@
+pm.test("Content-Type is present", function () {
+   let responseheaders=pm.response.headers.get('JWT');
+   console.log(responseheaders);
+   pm.environment.set("token",responseheaders);
+});
+//pm.environment.set("variable_key", "variable_value");
+//pm.globals.set("variable_key", "variable_value");

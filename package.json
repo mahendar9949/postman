@@ -1,0 +1,17 @@
+{
+  "name": "postman-api-automation",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "newman run Mindspark_Production.postman_collection.json -e MindsparkProd.postman_environment.json --reporters cli,junit --reporter-junit-export “newman/myreport.xml"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/postman-api-automation"
+  },
+  "author": "Mahendar Reddy",
+  "license": "ISC",
+  "dependencies": {
+    "newman": "^4.5.5"
+  }
+}

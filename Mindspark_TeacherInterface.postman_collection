@@ -1,0 +1,6220 @@
+{
+	"info": {
+		"_postman_id": "aaf02d63-176e-421c-8191-1103b7bdcd23",
+		"name": "Mindspark_TI",
+		"description": "Testing All the teacher interface api's, Checking the functionality of API's\n",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "jwt-token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6b2f6536-db3a-427c-95f8-ff28c0dfa991",
+						"exec": [
+							"pm.test(\"Content-Type is present\", function () {",
+							"    let responseheaders=pm.response.headers.get('JWT');",
+							"    console.log(responseheaders);",
+							"    postman.setEnvironmentVariable(\"token\",responseheaders);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "cbb4b872-0406-4430-a12d-ce3bf5b449c4",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"mindspark.teacher\",\n\t\"passwordType\": \"text\",\n\t\"password\":\"12345\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/CommonLogin/ValidatePassword",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"CommonLogin",
+						"ValidatePassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetHomeData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ed28b352-ea4e-4749-a3b5-14b28bf0e6fb",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\"\n           \n}"
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetHomeData",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetHomeData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetGroupStudentDetails",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9b559e34-09ee-4053-a16c-db0419c9eb85",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetGroupStudentDetails",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetGroupStudentDetails"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/UpdateUserDetails",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "742bc1aa-b1f8-49eb-aa01-a77851606ce0",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userID\": \"5a4dd7aa421aa9486128aaba\",\r\n  \"firstName\": \"Rajashekar\",\r\n  \"lastName\": \"Alluri\",\r\n  \"gender\": \"M\",\r\n  \"mobileNo\": \"8106454848\",\r\n  \"mobileISD\": \"+91\",\r\n  \"dateOfBirth\": \"2013-Feb-02\",\r\n  \"groupIDs\": [\r\n    \"5a2a3c20421aa946a3379bc8\",\r\n    \"5a298396421aa953ea64c4e9\",\r\n    \"5a298398421aa9234477d7df\",\r\n    \"5a29839b421aa953ea64c4ee\",\r\n    \"5a2983a0421aa92bfa3effc2\",\r\n    \"5a2983a3421aa951d42da319\",\r\n    \"5a2a3c20421aa946a3379bc8\"\r\n  ],\r\n  \"type\": \"teacher\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/UpdateUserDetails",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"UpdateUserDetails"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetPendingPasswordResetRequests",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "401b127a-fd64-4e12-af38-df8ad108f1fc",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"category\": \"teacher\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetPendingPasswordResetRequests",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetPendingPasswordResetRequests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetViewConcepts ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "92fb76b1-73f4-4b8f-b364-cb33a933975a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"groupID\": \"5a2a3c20421aa946a3379bc8\",\n\t\"topicID\": \"5a574aad421aa961ff45f50f\",\n\t\"type\": \"topicsSaved\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetViewConcepts",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetViewConcepts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/SaveTopicForLater",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "be07d47d-d498-4d10-8ec6-059cd82bb477",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"groupIDs\": [\r\n    \"5a2a3c20421aa946a3379bc8\"\r\n  ],\r\n  \"selectedConcepts\": [\r\n    \"59d98cfc1c5edc24e4024ba7\",\r\n    \"59d98cfc1c5edc24e4024bc9\"\r\n  ],\r\n  \"parentTopicID\": \"59d98cfa1c5edc24e402499f\",\r\n  \"parentTopicVersion\": 4,\r\n  \"parentTopicVersionID\": \"59d98cfa1c5edc24e402499f_4\",\r\n  \"topicName\": \"Data representation - 10\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/SaveTopicForLater",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"SaveTopicForLater"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/AddNewTeacher",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b7e3e795-65a9-4191-9ed8-5fc24e481dfb",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"TE030\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"Username already exists\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"firstName\": \"rearch\",\r\n  \"lastName\": \"narendra\",\r\n  \"userName\": \"ei\",\r\n  \"gender\": \"M\",\r\n   \"dateOfBirth\": \"1997-01-11\",\r\n  \"mobileNo\": \"9999999999\",\r\n  \"mobileISD\": \"+91\",\r\n  \"email\": \"shekarreddy.8010@gmail.com\",\r\n  \"groupID\": [\r\n    \"5a2a3c20421aa946a3379bc8\"\r\n  ]\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/AddNewTeacher",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"AddNewTeacher"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetWorksheets",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4b1aa75f-515b-4569-8c1c-d23b679a7dab",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\",\r\n  \"topicID\": null,\r\n  \"selectedTab\": \"assigned\",\r\n  \"filter\": \"\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetWorksheets",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetWorksheets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/ViewWorksheetTrail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "90da9e8b-4f99-404e-910d-fab6d0adb51f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"groupID\": \"5a298398421aa9234477d7df\",\r\n  \"studentID\": \"5aa0d919421aa95db24d5102\",\r\n  \"startFrom\": 0,\r\n  \"limit\": 20,\r\n  \"worksheetID\": \"5e15890a74d83d4741692cab\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/ViewWorksheetTrail",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"ViewWorksheetTrail"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetQuestionsForWorksheet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8d568fd7-26b5-4b2c-be00-323ec3aedfc6",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"conceptIDs\": [\n\t\t\"5a2a3c20421aa946a3379bc8\",\n    \t\"59d98cfd1c5edc24e4024ce7\"\t\n\t\t],\n\"groupID\":\t\"5afd0b9b421aa95cd4287b65\",\n\"topicID\":\t\"59d98cfa1c5edc24e40249bf\",\n\"type\":\t\"tough\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetQuestionsForWorksheet",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetQuestionsForWorksheet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/SaveWorksheetForLater",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8aeb680b-de50-4eb5-ab08-34bd37502239",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"duration\":\tnull,\n\"groupID\":\t\"5a2a3c20421aa946a3379bc8\",\n\"PSID\":\t\"5ddf7fda421aa93fb84a6a5f_1\",\n\"startDate\":\t\"2019-11-28\",\n\"startTime\":\t\"13:40\",\n\"worksheetID\":\t\"5ddf7fda421aa93fb84a6a5f\",\n\"worksheetName\":  \"Untitled (87)\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/SaveWorksheetForLater",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"SaveWorksheetForLater"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/AssignWorksheet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0dc2a4df-2b75-45fc-9e48-e8ce5bbcd8f5",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"duration\":\tnull,\n\"endDate\":\t\"2019-11-28\",\n\"endTime\":\t\"23:55\",\n\"groupIDs\":\t[\n\t\"5a2a3c20421aa946a3379bc8\",\n\t\"5afd0b9b421aa95cd4287b65\"\n\t],\n\"PSID\":\t\"5dba9fac8d9f692508007073_1\",\n\"startDate\":\t\"2019-11-28\",\n\"startTime\":\t\"13:50\",\n\"worksheetID\":\t\"5dba9fac8d9f692508007073\",\n\"worksheetName\":\t\"division number\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/AssignWorksheet",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"AssignWorksheet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetWorksheetSummary",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "49402e07-770b-4a2a-b432-3d04f9bf3179",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"groupID\":\t\"5a2a3c20421aa946a3379bc8\",\n\"worksheetID\":\t\"5dd7d2ef421aa917f8216582\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetWorksheetSummary",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetWorksheetSummary"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetWorksheetPreview",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "69a57240-079c-46a6-a939-cadaaedfd992",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "58a202ff-3501-4ff7-9501-8d7e809d91e2",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\",\r\n  \"worksheetID\": \"5e15890a74d83d4741692cab\",\r\n  \"selectedTab\": \"assigned\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetWorksheetPreview",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetWorksheetPreview"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetHeader",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3a52eb51-c075-4233-bf81-4c1ea25919f0",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/Teacher/GetHeader",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetHeader"
+					]
+				},
+				"description": "gets the header details for the teacher interface"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetActiveTopics",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8eeec086-a305-4c0b-9d08-96ec22372c3a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"groupID\": \"5a2a3c20421aa946a3379bc8\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetActiveTopics",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetActiveTopics"
+					]
+				},
+				"description": "gets the list of active topic for a teacher for that group"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetDeactivatedTopics",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4413a64b-aca8-4235-bb66-ffb7e020afd1",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetDeactivatedTopics",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetDeactivatedTopics"
+					]
+				},
+				"description": "gets the list of Deactive topic for a teacher for that group"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetTopicForActivation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c52ce51c-2642-42ce-b998-689a8d5daa38",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\",\r\n  \"classificationID\": 0,\r\n  \"selectedTab\": \"topicsFromMindspark\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetTopicForActivation",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetTopicForActivation"
+					]
+				},
+				"description": "gets the list of topics available for Activation for that teacher"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetTopicsForOtherGrades",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7432e62d-c68a-4f23-a50a-89495159888c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\",\r\n  \"classificationID\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetTopicsForOtherGrades",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetTopicsForOtherGrades"
+					]
+				},
+				"description": "gets the list of topics for grades other than that passed"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetResources",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e961a682-6e82-4163-8d9f-138a1c420a89",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/Teacher/GetResources",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetResources"
+					]
+				},
+				"description": "Everything needs to be decided for this API **need to be decided"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetClassUsageReport",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c103b1f7-b8bf-41d3-93af-9f8f22a7196f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\",\r\n  \"startDate\": \"2019-12-31\",\r\n  \"endDate\": \"2020-01-06\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetClassUsageReport",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetClassUsageReport"
+					]
+				},
+				"description": "gets the class usage report for a date range (default- current date to current date -1week)"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetClassLearningReport",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0239c0a1-eed6-4c00-a56d-65b4e0c22390",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\",\r\n  \"reportType\": \"performance\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetClassLearningReport",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetClassLearningReport"
+					]
+				},
+				"description": "Get the class learning report for the groupID under that teacher for the selected topicID"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetStudentLearningReport",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0f1de202-e9aa-4d0b-a213-032b78bce6d4",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetStudentLearningReport",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetStudentLearningReport"
+					]
+				},
+				"description": "Get the student learning for the students under the same group within the Teacher"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetRewardsReport",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "293339e1-8b6b-4fb6-9602-63d56d42ebcf",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/Teacher/GetRewardsReport",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetRewardsReport"
+					]
+				},
+				"description": "Everything needs to be decided for this API this API is used in Report Page **need to be decided (blank for pilot)\r\n\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetFeatures",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aec54067-bf85-4f79-929a-5c0b598d1c13",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetFeatures",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetFeatures"
+					]
+				},
+				"description": "Everything needs to be decided for this API this API is for Feature Page** yet to be decided for this page (blank for pilot)"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetMailBox",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a1955e9e-5910-4183-940b-cb122269c7bc",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"groupID\": \"5a2a3c20421aa946a3379bc8\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetMailBox",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetMailBox"
+					]
+				},
+				"description": "This is a teacher comunication page where she can see all the created comment and the reply (Mailbox)"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/WriteToMindspark",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b83cd05-be60-4379-8056-10afbb7c0881",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"messageBody\": \"testing 1  on nov 3 \",\n\t\"pageID\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/WriteToMindspark",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"WriteToMindspark"
+					]
+				},
+				"description": "When user clicked on send buton after creating comment/message, to send message\r\n\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/ReplyToThread",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7cd81854-c367-4771-ad20-8f9972d89322",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"messageID\": \"5e15578e74d83d14563e6f39\",\n\"messageBody\": \"Hello Mindspark\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/ReplyToThread",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"ReplyToThread"
+					]
+				},
+				"description": "When user replie back on the created comment.\r\n\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetConversationTrail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bec32fd5-4894-4d14-9e1c-2d288cd7325c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"messageID\": \"5e15549774d83d25231c6879\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetConversationTrail",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetConversationTrail"
+					]
+				},
+				"description": "To display the whole conversation\r\n\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/RateConversation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "20b45cf8-03ba-4adc-ac44-316e24b687ec",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"commentID\": \"kumardina-1498649702-MS-1498649702-1506334371 \",\n\t\"rating\": \"3\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/RateConversation",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"RateConversation"
+					]
+				},
+				"description": "User Can Rate his/her experience on the comment thread if there is atleast one reply from MindSpark.\r\n\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetMyDetails",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "db707a57-1073-42e1-a741-2bdbe0411988",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/Teacher/GetMyDetails",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetMyDetails"
+					]
+				},
+				"description": "for the teacher setting page where she can see all his/her details.\r\n\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/UpdateMyPassword",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fca44d6e-30e2-4ad0-9ed0-f30d0e030387",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"newPassword\": \"12345\",\n  \"currentPassword\": \"12345\",\n  \"confirmPassword\": \"12345\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/UpdateMyPassword",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"UpdateMyPassword"
+					]
+				},
+				"description": "The Teacher Can Update his/her Password by calling this API\r\n\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/UpdateMyDetails",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5e8c6b69-8997-4399-b6da-2e81a43d3777",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Rahul Teacher\",\r\n  \"emailID\": \"sck@gmail.com\",\r\n  \"mobileISD\": \"+91\",\r\n  \"mobileNumber\": \"4651321315\",\r\n  \"dateOfBirth\": \"1994-07-11\",\r\n  \"selectedSecretQuestion\": \"question-1500964146\",\r\n  \"secretAns\": \"messi\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/UpdateMyDetails",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"UpdateMyDetails"
+					]
+				},
+				"description": "The Teacher Can Update his/her Details by calling this API\r\n\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/ActivateTopicForGroups",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e0481ec5-9948-40d3-a120-57c078b1d28a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n  \"groupIDs\": [\n    \"5a2a3c20421aa946a3379bc8\"\n  ],\n  \"topicID\": \"59d98cfa1c5edc24e402499f\",\n  \"selectedConcepts\": [\n    \"59d98cfc1c5edc24e4024ba3\",\n    \"59d98cfc1c5edc24e4024bbc\",\n    \"59d98cfc1c5edc24e4024bd7\",\n    \"59d98cfc1c5edc24e4024bd5\",\n    \"59d98cfc1c5edc24e4024bd2\"\n  ],\n  \"flow\": \"MS\",\n  \"topicVersion\": 4,\n  \"topicVersionID\": \"59d98cfa1c5edc24e402499f_4\",\n  \"parentTopicID\": null,\n  \"parentTopicVersion\": null,\n  \"parentTopicVersionID\": null,\n  \"topicName\": \"Data representation\",\n  \"createFlag\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/ActivateTopicForGroups",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"ActivateTopicForGroups"
+					]
+				},
+				"description": "Activate topic after selecting the relevant groups"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/AssignPreviewWorksheet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6259dbe8-28c5-4373-aaec-6acce878b3de",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n  \"topicDetails\": {\n    \"59d98cfa1c5edc24e4024986\": {\n      \"latest\": true,\n      \"questionType\": \"practice\",\n      \"PSID\": \"59d98cfa1c5edc24e4024986_7\",\n      \"version\": 7,\n      \"selectedQuestions\": {\n        \"5c79eb757e8fac14d25248c2\": {\n          \"_id\": \"5c79eb757e8fac14d25248c2_1\",\n          \"version\": 1\n        },\n        \"5c79ec137e8fac14d04b8eb7\": {\n          \"_id\": \"5c79ec137e8fac14d04b8eb7_1\",\n          \"version\": 1\n        }\n      },\n      \"conceptList\": {\n        \"59d98cfd1c5edc24e4024cff\": {\n          \"_id\": \"59d98cfd1c5edc24e4024cff_4\",\n          \"version\": 4\n        },\n        \"59d98cfd1c5edc24e4024d02\": {\n          \"_id\": \"59d98cfd1c5edc24e4024d02_4\",\n          \"version\": 4\n        },\n        \"59d98cfd1c5edc24e4024d12\": {\n          \"_id\": \"59d98cfd1c5edc24e4024d12_4\",\n          \"version\": 4\n        },\n        \"59d98cfd1c5edc24e4024d13\": {\n          \"_id\": \"59d98cfd1c5edc24e4024d13_3\",\n          \"version\": 3\n        },\n        \"59d98cfd1c5edc24e4024d22\": {\n          \"_id\": \"59d98cfd1c5edc24e4024d22_3\",\n          \"version\": 3\n        },\n        \"59d98cfd1c5edc24e4024d40\": {\n          \"_id\": \"59d98cfd1c5edc24e4024d40_5\",\n          \"version\": 5\n        },\n        \"59d98cfd1c5edc24e4024d41\": {\n          \"_id\": \"59d98cfd1c5edc24e4024d41_2\",\n          \"version\": 2\n        }\n      }\n    }\n  },\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\",\n  \"type\": \"worksheet\",\n  \"questionIDs\": [\n    \"5c79eb757e8fac14d25248c2\",\n    \"5c79ec137e8fac14d04b8eb7\"\n  ],\n  \"worksheetName\": \"Assining worksheet\",\n  \"revision\": [\n    \"1\",\n    \"1\"\n  ],\n  \"selectedTab\": \"assigned\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/AssignPreviewWorksheet",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"AssignPreviewWorksheet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/DeactivateTopicForGroups",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3d2fa925-558d-40eb-88c6-76125caaebef",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"topicID\": \"59d98cfa1c5edc24e402499f\",\r\n  \"groupIDs\": [\r\n    \"5a2a3c20421aa946a3379bc8\"\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/DeactivateTopicForGroups",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"DeactivateTopicForGroups"
+					]
+				},
+				"description": "When user clicks deactivate topic for groups"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/DeactivateUserAccount",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e28420cf-2e73-47a9-a7b2-5a63606a387a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userID\": \"5a4dd7aa421aa9486128aaba\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/DeactivateUserAccount",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"DeactivateUserAccount"
+					]
+				},
+				"description": "The admin can use this API remove a teacher from the organization"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/DownloadClassUsageReport",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "31f8ce75-38a5-41ea-9a10-d6becb0d8346",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\",\r\n  \"startDate\": \"2020-01-01\",\r\n  \"endDate\": \"2020-01-07\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/DownloadClassUsageReport",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"DownloadClassUsageReport"
+					]
+				},
+				"description": "This API will be used to download the report for the classUsageReport\r\n\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetAllClassHomeData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "830c94cb-28da-4372-96fe-93242b8c5643",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetAllClassHomeData",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetAllClassHomeData"
+					]
+				},
+				"description": "gets the Achivements, Alerts, Student Usage, Topic Progress Summary, Class Accuracy Summary and Topic Activation Summary for a group for the last 7 days only\r\n\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "/Teacher/GetClassAccuracySummary",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "02ddbe00-5f74-4e08-8f9f-b41952246004",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"startDate\": \"01-01-2020\",\n\t\"endDate\": \"08-01-2020\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetClassAccuracySummary",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetClassAccuracySummary"
+					]
+				},
+				"description": "\r\nGets the class accuracy Summary report."
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/ResetPasswordForUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c03b7c9b-4502-4bb2-b231-aca8958c626e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userID\": \"5bf3b739421aa950ab5567e2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/ResetPasswordForUser",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"ResetPasswordForUser"
+					]
+				},
+				"description": "The teacher can use this API reset the student password"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetGroupStudentPasswordList",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7182281f-f5a8-4592-8f4a-92ef0808abdf",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C002\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetGroupStudentPasswordList",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetGroupStudentPasswordList"
+					]
+				},
+				"description": "teacher will call this API if she/he wants to reset the Password for his/her class students, we will return the Information regarding that.\r\n\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetUsageOverviewDetails",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "50e49d99-1754-477f-a6a7-9b455634febc",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"groupID\": \"5a2a3c20421aa946a3379bc8\",\n \"startDate\": \"01-01-2020\",\n \"endDate\": \"08-01-2020\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetUsageOverviewDetails",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetUsageOverviewDetails"
+					]
+				},
+				"description": "gets the Usage Overview Details for a date range in details. (default- current date to current date -1week)"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetProgressSummary",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2e13fdaf-fa12-4da5-bd52-6d6d6ce9ba03",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"groupID\": \"5a2a3c20421aa946a3379bc8\",\n    \"topicID\": \"59d98cfa1c5edc24e402499f\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetProgressSummary",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetProgressSummary"
+					]
+				},
+				"description": "gets the Progress Summary report for a a particular groupID and a topicID.\r\n\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetStudentTopicStrength",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c1db1b43-c0bf-4dcb-adac-6c4d2ceaa97a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\n\t\"groupID\": \"5a2a3c20421aa946a3379bc8\",\n    \"topicID\": \"59d98cfa1c5edc24e402499f\",\n      \"studentID\": \"5bf3b739421aa950ab5567e2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetStudentTopicStrength",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetStudentTopicStrength"
+					]
+				},
+				"description": "Get the student weakness and strength for the particular topicID"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetTrailforView",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d7441cce-5358-4b5c-8502-d25dbc1a85a3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\n    \"topicID\": \"59d98cfa1c5edc24e402499f\",\n    \"studentID\": \"5bf3b739421aa950ab5567e2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetTrailforView",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetTrailforView"
+					]
+				},
+				"description": "Get the student trail for the particular topic"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetSampleQuestions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2763e01b-86dc-447f-a131-bbef9ae588c8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"conceptID\": \"59d98cfc1c5edc24e4024bd5\",\n\t\"groupID\": \"5a2a3c20421aa946a3379bc8\"\n\t\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetSampleQuestions",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetSampleQuestions"
+					]
+				},
+				"description": "Get the Sample Questions for the particular conceptID\r\n\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetHelp",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8a410ec8-c2ca-4410-8ace-54e56af03320",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/Teacher/GetHelp",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetHelp"
+					]
+				},
+				"description": "Everything needs to be decided for this API **need to be decided\r\n\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/Search",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "176e408f-fb23-43ee-adc6-1ae2ab8bca58",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"searchText\": \"fract\",\n\t\"context\": \"en\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/Search",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"Search"
+					]
+				},
+				"description": "gets the View Concept page for a particular topicId\r\n\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetSearchResult",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "52772749-e2ae-4dec-956a-13a39cd6ff23",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"groupID\": \"5a2a3c20421aa946a3379bc8\",\n    \"topicID\": \"59d98cfa1c5edc24e402499f\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetSearchResult",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetSearchResult"
+					]
+				},
+				"description": "gets the Search result page for a matching pattern\r\n\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetGroupsForActivation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1028b920-5de4-47e2-b4ed-b5fdaca536df",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"name": "Content-Type",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\",\r\n  \"topicID\": null,\r\n  \"conceptIDs\": [\r\n    \"59d98cfc1c5edc24e4024bca\"\r\n  ],\r\n  \"flow\": \"Customize\",\r\n  \"topicVersion\": null,\r\n  \"topicVersionID\": null,\r\n  \"parentTopicID\": \"59d98cfa1c5edc24e40249a1\",\r\n  \"parentTopicVersion\": 1,\r\n  \"parentTopicVersionID\": \"59d98cfa1c5edc24e40249a1_1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetGroupsForActivation",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetGroupsForActivation"
+					]
+				},
+				"description": "On Click Activate"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetConceptsForActivation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "827b16e9-dd06-453a-88e9-4616f3d34163",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"groupID\": \"5a2a3c20421aa946a3379bc8\",\n    \"topicID\": \"59d98cfa1c5edc24e402499f\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetConceptsForActivation",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetConceptsForActivation"
+					]
+				},
+				"description": "when teacher Try to Activate any topic through topics for activation\r\n\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/DownloadClassLearningReport",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "69611572-7672-44d8-a6bf-c30aab108916",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"groupID\": \"5a2a3c20421aa946a3379bc8\",\n    \"topicID\": \"59d98cfa1c5edc24e402499f\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/DownloadClassLearningReport",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"DownloadClassLearningReport"
+					]
+				},
+				"description": "This API will be used to download the report for the classLearningReport\r\n\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/DownloadDetailedClassUsageReport",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6feda0b5-20b3-43f0-9302-22f5c6f11992",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\",\r\n  \"startDate\": \"2019-12-09\",\r\n  \"endDate\": \"2020-01-08\",\r\n  \"columns\": [\r\n    \"studentTasks\",\r\n    \"teacherTasks\",\r\n    \"questionType\",\r\n    \"daysLogIn\"\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/DownloadDetailedClassUsageReport",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"DownloadDetailedClassUsageReport"
+					]
+				},
+				"description": "Get the detailed and added column list of class Usage report for the groupID under that teacher for the selected date range\r\n\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetGroupsForDeactivation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7f61cbc6-2334-4c24-ae74-705e9dfc877d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\",\r\n  \"topicID\": \"5c0f8bbf421aa961c5173a20\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetGroupsForDeactivation",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetGroupsForDeactivation"
+					]
+				},
+				"description": "On Click Deactivate"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetTopicsForWorksheet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5f5b82cb-d6a3-474d-be13-a27b7f2dbad6",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\",\r\n  \"searchKey\": \"Bar Gr\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetTopicsForWorksheet",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetTopicsForWorksheet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/UpdateWorksheetQuestions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5981767c-1851-43d3-8697-f316a137e0e3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\",\r\n  \"topicID\": \"59d98cfa1c5edc24e4024986\",\r\n  \"worksheetID\": \"5e16ba5f74d83d7efa7b090f\",\r\n  \"PSID\": \"5e16ba5f74d83d7efa7b090f_1\",\r\n  \"questionID\": \"5c79ecb87e8fac15d41d48c3\",\r\n  \"conceptIDs\": [\r\n    \"59d98cfd1c5edc24e4024d13\",\r\n    \"59d98cfd1c5edc24e4024d12\",\r\n    \"59d98cfd1c5edc24e4024d02\",\r\n    \"59d98cfd1c5edc24e4024cff\",\r\n    \"59d98cfd1c5edc24e4024d22\",\r\n    \"59d98cfd1c5edc24e4024d41\",\r\n    \"59d98cfd1c5edc24e4024d40\"\r\n  ],\r\n  \"action\": \"add\",\r\n  \"questionType\": \"practice\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/UpdateWorksheetQuestions",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"UpdateWorksheetQuestions"
+					]
+				},
+				"description": "Adding Questions to the worksheet"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetLiveClassData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9bbb18b8-d718-4868-bf3b-581d7fc9c103",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetLiveClassData",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetLiveClassData"
+					]
+				},
+				"description": "Get all students assigend to a class"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetWorksheetDetailsForEdit",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3265fba9-fc4e-467a-a52c-aaf81273c90b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"worksheetID\": \"5e16ba5f74d83d7efa7b090f\",\r\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetWorksheetDetailsForEdit",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetWorksheetDetailsForEdit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetGroupsToAssignContent",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "58730051-ade1-4646-b807-e15da91c4398",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\",\r\n  \"contentID\": [],\r\n  \"contentType\": \"worksheet\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetGroupsToAssignContent",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetGroupsToAssignContent"
+					]
+				},
+				"description": "On Click Activate"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/ReactivateTopicForGroup",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5a0244d8-6fac-4474-b8cd-1fc5b6e58b86",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"topicID\": \"5a53423bea46ea0d740027f8\",\r\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/ReactivateTopicForGroup",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"ReactivateTopicForGroup"
+					]
+				},
+				"description": "When user clicked on send buton after creating comment/message, to send message\r\n\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/UnAssignWorksheet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0c8b4a94-625d-44a0-b0f8-db7acf887a43",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"worksheetID\": \"5e16fa2074d83d0633606367\",\r\n  \"groupIDs\": [\r\n    \"5a2a5aef421aa96055258ad8\",\r\n    \"5a2a5af2421aa96465138e16\",\r\n    \"5afd0b9e421aa968be495700\"\r\n  ],\r\n  \"isExpired\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/UnAssignWorksheet",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"UnAssignWorksheet"
+					]
+				},
+				"description": "UnassignWorksheet"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetGroupTeacherDetails",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "34ed1768-b727-49b2-ae4a-0f14abcd0fa8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"type\": \"active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetGroupTeacherDetails",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetGroupTeacherDetails"
+					]
+				},
+				"description": "this is a API returns list of teachers of a group and their information if they have a permission\r\n\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetTeacherPasswordList",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6acece87-fe53-42de-a38d-1d0118796dcb",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetTeacherPasswordList",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetTeacherPasswordList"
+					]
+				},
+				"description": "Admin will call this API if she/he wants to reset the Password for his/her group, we will return the Information regarding that.\r\n\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/ReactivateUserAccount",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3fcff51c-cab1-458d-b8cf-942ac9388604",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userID\": \"5a4dd7aa421aa9486128aaba\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/ReactivateUserAccount",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"ReactivateUserAccount"
+					]
+				},
+				"description": "The admin can use this API remove a teacher from the organization\r\n\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetDetailedClassUsageReport",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e4d973c7-4b0e-49fb-b806-6fa698583800",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\",\r\n  \"startDate\": \"2020-01-01\",\r\n  \"endDate\": \"2020-01-08\",\r\n  \"columns\": [\r\n    \"sparkie\",\r\n    \"home\",\r\n    \"daysLogIn\",\r\n    \"questionType\"\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetDetailedClassUsageReport",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetDetailedClassUsageReport"
+					]
+				},
+				"description": "Get the detailed and added column list of class learning report for the groupID under that teacher for the selected date range\r\n\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetTopicProgressSummary",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d498dcb5-c3d3-4999-badb-19b12bc9cba5",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"grade\": \"3\",\r\n  \"low\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetTopicProgressSummary",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetTopicProgressSummary"
+					]
+				},
+				"description": "Gets the topic's Progress Summary report for all groups.\r\n\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetAchievementsDetails",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c01907a4-88e3-4f33-9283-2d4426aaad92",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"selectedTab\": \"sparkieStars\",\r\n  \"selectedMonth\": \"2019-12-01\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetAchievementsDetails",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetAchievementsDetails"
+					]
+				},
+				"description": "gets theAchievements Details For the Admin SparkieChamps, SparkieStars and BestClass\r\n\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetTopicActivationSummary",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1abedfc3-7fea-491f-8a81-fa6c8553ff27",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"gradeList\": [\n\t\t\"1\",\n\t\t\"2\",\n\t\t\"3\",\n\t\t\"4\",\n\t\t\"5\", \n\t\t\"6\",\n\t\t\"7\",\n\t\t\"8\"\n\t\t]\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetTopicActivationSummary",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetTopicActivationSummary"
+					]
+				},
+				"description": "Gets the topic activation summary .\r\n\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/MarkTopicAsPriority",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "976beb71-f6f9-48bd-95d4-cfa8e11bb4ca",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\",\r\n  \"topicID\": \"5e2042c4421aa929f67bd77a\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/MarkTopicAsPriority",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"MarkTopicAsPriority"
+					]
+				},
+				"description": "When user clicked on send buton after creating comment/message, to send message\r\n\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetUsageOverviewForAdmin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a8b7f63d-8184-4cc3-bb8d-9fb96d09cee7",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"selectedTab\": \"student\",\r\n  \"startDate\": \"Jan 03 2020\",\r\n  \"endDate\": \"Jan 09 2020\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetUsageOverviewForAdmin",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetUsageOverviewForAdmin"
+					]
+				},
+				"description": "gets the Usage Overview Details for a date range in details. (default- current date to current date -1week)\r\n\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/AddQuestionsToExistingWorksheet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "96a724d7-8435-409b-97ed-3e26b34c7c08",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// pm.test(\"Validating Parameters\", function () {",
+							"//     var jsonData = pm.response.json();",
+							"//     pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"//     pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"// });",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"worksheetID\": \"5c1d4666421aa9531f42eb30\",\r\n  \"type\": \"worksheet\",\r\n  \"questionIDs\": [\r\n    \"5c79eb757e8fac14d25248c2\",\r\n    \"5c79ec717e8fac14d252517d\"\r\n  ],\r\n  \"topicDetails\": {\r\n    \"59d98cfa1c5edc24e4024986\": {\r\n      \"latest\": true,\r\n      \"questionType\": \"practice\",\r\n      \"PSID\": \"59d98cfa1c5edc24e4024986_7\",\r\n      \"version\": 7,\r\n      \"selectedQuestions\": {\r\n        \"5c79eb757e8fac14d25248c2\": {\r\n          \"_id\": \"5c79eb757e8fac14d25248c2_1\",\r\n          \"version\": 1\r\n        },\r\n        \"5c79ec717e8fac14d252517d\": {\r\n          \"_id\": \"5c79ec717e8fac14d252517d_1\",\r\n          \"version\": 1\r\n        }\r\n      },\r\n      \"conceptList\": {\r\n        \"59d98cfd1c5edc24e4024cff\": {\r\n          \"_id\": \"59d98cfd1c5edc24e4024cff_4\",\r\n          \"version\": 4\r\n        },\r\n        \"59d98cfd1c5edc24e4024d02\": {\r\n          \"_id\": \"59d98cfd1c5edc24e4024d02_4\",\r\n          \"version\": 4\r\n        },\r\n        \"59d98cfd1c5edc24e4024d12\": {\r\n          \"_id\": \"59d98cfd1c5edc24e4024d12_4\",\r\n          \"version\": 4\r\n        },\r\n        \"59d98cfd1c5edc24e4024d13\": {\r\n          \"_id\": \"59d98cfd1c5edc24e4024d13_3\",\r\n          \"version\": 3\r\n        },\r\n        \"59d98cfd1c5edc24e4024d15\": {\r\n          \"_id\": \"59d98cfd1c5edc24e4024d15_2\",\r\n          \"version\": 2\r\n        },\r\n        \"59d98cfd1c5edc24e4024d22\": {\r\n          \"_id\": \"59d98cfd1c5edc24e4024d22_3\",\r\n          \"version\": 3\r\n        },\r\n        \"59d98cfd1c5edc24e4024d23\": {\r\n          \"_id\": \"59d98cfd1c5edc24e4024d23_3\",\r\n          \"version\": 3\r\n        },\r\n        \"59d98cfd1c5edc24e4024d27\": {\r\n          \"_id\": \"59d98cfd1c5edc24e4024d27_5\",\r\n          \"version\": 5\r\n        },\r\n        \"59d98cfd1c5edc24e4024d28\": {\r\n          \"_id\": \"59d98cfd1c5edc24e4024d28_5\",\r\n          \"version\": 5\r\n        },\r\n        \"59d98cfd1c5edc24e4024d29\": {\r\n          \"_id\": \"59d98cfd1c5edc24e4024d29_5\",\r\n          \"version\": 5\r\n        },\r\n        \"59d98cfd1c5edc24e4024d2a\": {\r\n          \"_id\": \"59d98cfd1c5edc24e4024d2a_2\",\r\n          \"version\": 2\r\n        },\r\n        \"59d98cfd1c5edc24e4024d2c\": {\r\n          \"_id\": \"59d98cfd1c5edc24e4024d2c_5\",\r\n          \"version\": 5\r\n        },\r\n        \"59d98cfd1c5edc24e4024d40\": {\r\n          \"_id\": \"59d98cfd1c5edc24e4024d40_5\",\r\n          \"version\": 5\r\n        },\r\n        \"59d98cfd1c5edc24e4024d41\": {\r\n          \"_id\": \"59d98cfd1c5edc24e4024d41_2\",\r\n          \"version\": 2\r\n        },\r\n        \"59d98cfd1c5edc24e4024d42\": {\r\n          \"_id\": \"59d98cfd1c5edc24e4024d42_5\",\r\n          \"version\": 5\r\n        },\r\n        \"59d98cfd1c5edc24e4024d43\": {\r\n          \"_id\": \"59d98cfd1c5edc24e4024d43_5\",\r\n          \"version\": 5\r\n        }\r\n      }\r\n    }\r\n  },\r\n  \"revision\": [\r\n    \"1\",\r\n    \"1\"\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/AddQuestionsToExistingWorksheet",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"AddQuestionsToExistingWorksheet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetWorksheetPerformanceReport",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f8a6b904-02e0-442a-b4c7-31e5bef8557b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\",\r\n  \"worksheetID\": \"5e15890a74d83d4741692cab\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetWorksheetPerformanceReport",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetWorksheetPerformanceReport"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/RemoveTopicPriority",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c2c8d025-578b-462d-9127-2a73fb342b70",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"groupID\": \"5b12fb26421aa96bad6a58af\",\r\n  \"topicID\": \"5e07347e89967c2f240008fe\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/RemoveTopicPriority",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"RemoveTopicPriority"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetWorksheetCompletionStatus",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d0a90cf0-6afc-4c27-9940-08adb9afa68a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\",\r\n  \"worksheetID\": \"5e18656a74d83d4b932b5070\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetWorksheetCompletionStatus",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetWorksheetCompletionStatus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetClassLearningReportRemediate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b1376e38-4f1f-40c0-a0a0-3ae6258b6348",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\",\r\n  \"topicID\": \"5a53423bea46ea0d740027f8\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetClassLearningReportRemediate",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetClassLearningReportRemediate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/DownloadMindsparkPerformanceScoreCSV",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6edd9de1-bdc7-481f-bd2b-e8d3b4d962f9",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"groupId\": \"5a2a3c20421aa946a3379bc8\",\r\n  \"startDate\": \"2019-12-21\",\r\n  \"endDate\": \"2020-01-19\",\r\n  \"marks\": \"100\",\r\n  \"graceWeeks\": \"0\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/DownloadMindsparkPerformanceScoreCSV",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"DownloadMindsparkPerformanceScoreCSV"
+					]
+				},
+				"description": "It should download MPR "
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetSavedWorksheetsForAddPreview",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0a971799-3682-452f-9f52-2d257f14a4b1",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"groupID\": \"5a298398421aa9234477d7df\",\n    \"type\": \"worksheet\",\n    \"contentState\": \"S\",\n    \"worksheetID\": \"5e29adc589967c0ff4006dbb\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetSavedWorksheetsForAddPreview",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetSavedWorksheetsForAddPreview"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/SortWorksheetQuestion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "96b8156f-e0c5-49f5-9d14-06e3c304abf2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"worksheetID\": \"5e14688b74d83d7eba7f5c22\",\r\n  \"groupID\": \"5afd0b9e421aa968be495700\",\r\n  \"PSID\": \"5e14688b74d83d7eba7f5c22_1\",\r\n  \"questionIDs\": [\r\n    \"59dc8e871c5edc24e4062f24\",\r\n    \"59dc8e871c5edc24e4062f28\",\r\n    \"59dc8e871c5edc24e4062f23\"\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/SortWorksheetQuestion",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"SortWorksheetQuestion"
+					]
+				},
+				"description": "Sorting Worksheet Questions"
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetAlerts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bac55d1c-53ef-489e-8249-7da9b6fc1f08",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"selectedTab\": \"missedSession\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetAlerts",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetAlerts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetMisconceptsTrail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "af593c1f-54af-4423-b0fd-c960eedfa305",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// pm.test(\"Validating Parameters\", function () {",
+							"//     var jsonData = pm.response.json();",
+							"//     pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"//     pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"// });",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\",\r\n  \"topicID\": \"5ae2fa9a421aa9434b1071ec\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetMisconceptsTrail",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetMisconceptsTrail"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetCWATrail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e084edbe-f7c7-4b4d-91ef-89a5278fcac1",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\",\r\n  \"topicID\": \"5a5cb241421aa974fe10a11b\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetCWATrail",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetCWATrail"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/WeakConceptsDetails",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dc2e872c-8166-4ed4-9ef1-592ef8f901da",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\",\r\n  \"topicID\": \"5cd28a28421aa975142ac5f4\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/WeakConceptsDetails",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"WeakConceptsDetails"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetMindsparkPerformanceScore",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4045179a-b890-4452-854a-d98341d13d3d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"groupId\": \"5a2a3c20421aa946a3379bc8\",\r\n  \"startDate\": \"2019-12-30\",\r\n  \"endDate\": \"2020-01-28\",\r\n  \"marks\": \"100\",\r\n  \"graceWeeks\": \"0\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetMindsparkPerformanceScore",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetMindsparkPerformanceScore"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/DownloadMindsparkPerformanceScore",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0aa622a8-cd66-4990-be34-7a29ee854a74",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"groupId\": \"5a298398421aa9234477d7df\",\r\n  \"startDate\": \"2019-12-30\",\r\n  \"endDate\": \"2020-01-28\",\r\n  \"marks\": \"100\",\r\n  \"graceWeeks\": \"0\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/DownloadMindsparkPerformanceScore",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"DownloadMindsparkPerformanceScore"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetCommonWrongAnswers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "13bf6029-bdc8-4cf3-bad0-be545f110c3c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"// pm.test(\"Validating Parameters\", function () {",
+							"//     var jsonData = pm.response.json();",
+							"//     pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"//     pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"// });",
+							"// const schema = {",
+							"//     \" type\": \"object\",",
+							"//     \"properties\": {",
+							"//         \"resultCode\": {\"type\": \"string\"},",
+							"//         \"resultMessage\": {\"type\": \"string\"}",
+							"//     },",
+							"// }",
+							"// pm.test(\"validate schema\", () => {",
+							"//     pm.response.to.have.jsonSchema(schema);",
+							"//     });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"orgName\": \"Mindspark Demo School\",\r\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\",\r\n  \"topicID\": \"5a5cb241421aa974fe10a11b\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetCommonWrongAnswers",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetCommonWrongAnswers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetWorksheetDetails",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "44e5706a-951c-4b82-bc46-c8e95ac7e798",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C001\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"success\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"worksheetID\": \"5e2e956674d83d09c5785bb2\",\r\n  \"groupID\": \"5a2a3c20421aa946a3379bc8\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetWorksheetDetails",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetWorksheetDetails"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teacher/GetWeakConceptTrail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9ecf8242-3283-47fe-bb91-96f1339d9a73",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validating Parameters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.resultCode).to.eql(\"C002\");",
+							"    pm.expect(jsonData.resultMessage).to.eql(\"failure\");",
+							"});",
+							"const schema = {",
+							"    \" type\": \"object\",",
+							"    \"properties\": {",
+							"        \"resultCode\": {\"type\": \"string\"},",
+							"        \"resultMessage\": {\"type\": \"string\"}",
+							"    },",
+							"}",
+							"pm.test(\"validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwt",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"groupID\":  \"5a2a3c20421aa946a3379bc8\",\n  \"topicID\":  \"5ae2fa9a421aa9434b1071ec\",\n  \"conceptID\": \"59d98cfc1c5edc24e4024a55\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Teacher/GetWeakConceptTrail",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Teacher",
+						"GetWeakConceptTrail"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

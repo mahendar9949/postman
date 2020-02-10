@@ -1,0 +1,911 @@
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+// test
+
+var jsonData = pm.response.json();
+
+pm.test("Your test name", function () {
+    pm.expect(jsonData.resultCode).to.eql("C001");
+    pm.expect(jsonData.resultMessage).to.eql("success");
+});
+
+//Schema Validation
+var jsonData = pm.response.json();
+var schema = {
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "resultCode": {
+      "type": "string"
+    },
+    "resultMessage": {
+      "type": "string"
+    },
+    "sessionInformation": {
+      "type": "object",
+      "properties": {
+        "sessionID": {
+          "type": "string"
+        },
+        "sessionStartAt": {
+          "type": "string"
+        },
+        "sessionType": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "sessionID",
+        "sessionStartAt",
+        "sessionType"
+      ]
+    },
+    "passwordTypeChanged": {
+      "type": "boolean"
+    },
+    "permittedNavs": {
+      "type": "object",
+      "properties": {
+        "myProgress": {
+          "type": "boolean"
+        },
+        "myTopics": {
+          "type": "boolean"
+        },
+        "worksheets": {
+          "type": "boolean"
+        },
+        "games": {
+          "type": "boolean"
+        },
+        "myMindspark": {
+          "type": "boolean"
+        },
+        "reward": {
+          "type": "boolean"
+        },
+        "myFavourities": {
+          "type": "boolean"
+        },
+        "mailbox": {
+          "type": "boolean"
+        },
+        "myDetails": {
+          "type": "boolean"
+        },
+        "help": {
+          "type": "boolean"
+        },
+        "sparkies": {
+          "type": "boolean"
+        },
+        "home": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "boolean"
+        },
+        "notification": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "myProgress",
+        "myTopics",
+        "worksheets",
+        "games",
+        "myMindspark",
+        "reward",
+        "myFavourities",
+        "mailbox",
+        "myDetails",
+        "help",
+        "sparkies",
+        "home",
+        "message",
+        "notification"
+      ]
+    },
+    "userInformation": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "section": {
+          "type": "string"
+        },
+        "grade": {
+          "type": "integer"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "isRetail": {
+          "type": "boolean"
+        },
+        "selectedTheme": {
+          "type": "string"
+        },
+        "groupID": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "avatar",
+        "section",
+        "grade",
+        "gender",
+        "language",
+        "isRetail",
+        "selectedTheme",
+        "groupID"
+      ]
+    },
+    "currentWeekReport": {
+      "type": "object",
+      "properties": {
+        "sparkie": {
+          "type": "integer"
+        },
+        "dateFrom": {
+          "type": "string"
+        },
+        "dateTo": {
+          "type": "string"
+        },
+        "correctAttempted": {
+          "type": "integer"
+        },
+        "weeklyTarget": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "sparkie",
+        "dateFrom",
+        "dateTo",
+        "correctAttempted",
+        "weeklyTarget"
+      ]
+    },
+    "previousWeekReport": {
+      "type": "object",
+      "properties": {
+        "sparkie": {
+          "type": "integer"
+        },
+        "dateFrom": {
+          "type": "string"
+        },
+        "dateTo": {
+          "type": "string"
+        },
+        "correctAttempted": {
+          "type": "integer"
+        },
+        "weeklyTarget": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "sparkie",
+        "dateFrom",
+        "dateTo",
+        "correctAttempted",
+        "weeklyTarget"
+      ]
+    },
+    "monthlyReport": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "month": {
+              "type": "string"
+            },
+            "weeklyAchievement": {
+              "type": "integer"
+            },
+            "sparkie": {
+              "type": "integer"
+            },
+            "totalQuestions": {
+              "type": "integer"
+            },
+            "correctAttempts": {
+              "type": "integer"
+            },
+            "score": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "month",
+            "weeklyAchievement",
+            "sparkie",
+            "totalQuestions",
+            "correctAttempts",
+            "score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "month": {
+              "type": "string"
+            },
+            "weeklyAchievement": {
+              "type": "integer"
+            },
+            "sparkie": {
+              "type": "integer"
+            },
+            "totalQuestions": {
+              "type": "integer"
+            },
+            "correctAttempts": {
+              "type": "integer"
+            },
+            "score": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "month",
+            "weeklyAchievement",
+            "sparkie",
+            "totalQuestions",
+            "correctAttempts",
+            "score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "month": {
+              "type": "string"
+            },
+            "weeklyAchievement": {
+              "type": "integer"
+            },
+            "sparkie": {
+              "type": "integer"
+            },
+            "totalQuestions": {
+              "type": "integer"
+            },
+            "correctAttempts": {
+              "type": "integer"
+            },
+            "score": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "month",
+            "weeklyAchievement",
+            "sparkie",
+            "totalQuestions",
+            "correctAttempts",
+            "score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "month": {
+              "type": "string"
+            },
+            "weeklyAchievement": {
+              "type": "integer"
+            },
+            "sparkie": {
+              "type": "integer"
+            },
+            "totalQuestions": {
+              "type": "integer"
+            },
+            "correctAttempts": {
+              "type": "integer"
+            },
+            "score": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "month",
+            "weeklyAchievement",
+            "sparkie",
+            "totalQuestions",
+            "correctAttempts",
+            "score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "month": {
+              "type": "string"
+            },
+            "weeklyAchievement": {
+              "type": "integer"
+            },
+            "sparkie": {
+              "type": "integer"
+            },
+            "totalQuestions": {
+              "type": "integer"
+            },
+            "correctAttempts": {
+              "type": "integer"
+            },
+            "score": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "month",
+            "weeklyAchievement",
+            "sparkie",
+            "totalQuestions",
+            "correctAttempts",
+            "score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "month": {
+              "type": "string"
+            },
+            "weeklyAchievement": {
+              "type": "integer"
+            },
+            "sparkie": {
+              "type": "integer"
+            },
+            "totalQuestions": {
+              "type": "integer"
+            },
+            "correctAttempts": {
+              "type": "integer"
+            },
+            "score": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "month",
+            "weeklyAchievement",
+            "sparkie",
+            "totalQuestions",
+            "correctAttempts",
+            "score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "month": {
+              "type": "string"
+            },
+            "weeklyAchievement": {
+              "type": "integer"
+            },
+            "sparkie": {
+              "type": "integer"
+            },
+            "totalQuestions": {
+              "type": "integer"
+            },
+            "correctAttempts": {
+              "type": "integer"
+            },
+            "score": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "month",
+            "weeklyAchievement",
+            "sparkie",
+            "totalQuestions",
+            "correctAttempts",
+            "score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "month": {
+              "type": "string"
+            },
+            "weeklyAchievement": {
+              "type": "integer"
+            },
+            "sparkie": {
+              "type": "integer"
+            },
+            "totalQuestions": {
+              "type": "integer"
+            },
+            "correctAttempts": {
+              "type": "integer"
+            },
+            "score": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "month",
+            "weeklyAchievement",
+            "sparkie",
+            "totalQuestions",
+            "correctAttempts",
+            "score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "month": {
+              "type": "string"
+            },
+            "weeklyAchievement": {
+              "type": "integer"
+            },
+            "sparkie": {
+              "type": "integer"
+            },
+            "totalQuestions": {
+              "type": "integer"
+            },
+            "correctAttempts": {
+              "type": "integer"
+            },
+            "score": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "month",
+            "weeklyAchievement",
+            "sparkie",
+            "totalQuestions",
+            "correctAttempts",
+            "score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "month": {
+              "type": "string"
+            },
+            "weeklyAchievement": {
+              "type": "integer"
+            },
+            "sparkie": {
+              "type": "integer"
+            },
+            "totalQuestions": {
+              "type": "integer"
+            },
+            "correctAttempts": {
+              "type": "integer"
+            },
+            "score": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "month",
+            "weeklyAchievement",
+            "sparkie",
+            "totalQuestions",
+            "correctAttempts",
+            "score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "month": {
+              "type": "string"
+            },
+            "weeklyAchievement": {
+              "type": "integer"
+            },
+            "sparkie": {
+              "type": "integer"
+            },
+            "totalQuestions": {
+              "type": "integer"
+            },
+            "correctAttempts": {
+              "type": "integer"
+            },
+            "score": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "month",
+            "weeklyAchievement",
+            "sparkie",
+            "totalQuestions",
+            "correctAttempts",
+            "score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "month": {
+              "type": "string"
+            },
+            "weeklyAchievement": {
+              "type": "integer"
+            },
+            "sparkie": {
+              "type": "integer"
+            },
+            "totalQuestions": {
+              "type": "integer"
+            },
+            "correctAttempts": {
+              "type": "integer"
+            },
+            "score": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "month",
+            "weeklyAchievement",
+            "sparkie",
+            "totalQuestions",
+            "correctAttempts",
+            "score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "month": {
+              "type": "string"
+            },
+            "weeklyAchievement": {
+              "type": "integer"
+            },
+            "sparkie": {
+              "type": "integer"
+            },
+            "totalQuestions": {
+              "type": "integer"
+            },
+            "correctAttempts": {
+              "type": "integer"
+            },
+            "score": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "month",
+            "weeklyAchievement",
+            "sparkie",
+            "totalQuestions",
+            "correctAttempts",
+            "score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "month": {
+              "type": "string"
+            },
+            "weeklyAchievement": {
+              "type": "integer"
+            },
+            "sparkie": {
+              "type": "integer"
+            },
+            "totalQuestions": {
+              "type": "integer"
+            },
+            "correctAttempts": {
+              "type": "integer"
+            },
+            "score": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "month",
+            "weeklyAchievement",
+            "sparkie",
+            "totalQuestions",
+            "correctAttempts",
+            "score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "month": {
+              "type": "string"
+            },
+            "weeklyAchievement": {
+              "type": "integer"
+            },
+            "sparkie": {
+              "type": "integer"
+            },
+            "totalQuestions": {
+              "type": "integer"
+            },
+            "correctAttempts": {
+              "type": "integer"
+            },
+            "score": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "month",
+            "weeklyAchievement",
+            "sparkie",
+            "totalQuestions",
+            "correctAttempts",
+            "score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "month": {
+              "type": "string"
+            },
+            "weeklyAchievement": {
+              "type": "integer"
+            },
+            "sparkie": {
+              "type": "integer"
+            },
+            "totalQuestions": {
+              "type": "integer"
+            },
+            "correctAttempts": {
+              "type": "integer"
+            },
+            "score": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "month",
+            "weeklyAchievement",
+            "sparkie",
+            "totalQuestions",
+            "correctAttempts",
+            "score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "month": {
+              "type": "string"
+            },
+            "weeklyAchievement": {
+              "type": "integer"
+            },
+            "sparkie": {
+              "type": "integer"
+            },
+            "totalQuestions": {
+              "type": "integer"
+            },
+            "correctAttempts": {
+              "type": "integer"
+            },
+            "score": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "month",
+            "weeklyAchievement",
+            "sparkie",
+            "totalQuestions",
+            "correctAttempts",
+            "score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "month": {
+              "type": "string"
+            },
+            "weeklyAchievement": {
+              "type": "integer"
+            },
+            "sparkie": {
+              "type": "integer"
+            },
+            "totalQuestions": {
+              "type": "integer"
+            },
+            "correctAttempts": {
+              "type": "integer"
+            },
+            "score": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "month",
+            "weeklyAchievement",
+            "sparkie",
+            "totalQuestions",
+            "correctAttempts",
+            "score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "month": {
+              "type": "string"
+            },
+            "weeklyAchievement": {
+              "type": "integer"
+            },
+            "sparkie": {
+              "type": "integer"
+            },
+            "totalQuestions": {
+              "type": "integer"
+            },
+            "correctAttempts": {
+              "type": "integer"
+            },
+            "score": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "month",
+            "weeklyAchievement",
+            "sparkie",
+            "totalQuestions",
+            "correctAttempts",
+            "score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "month": {
+              "type": "string"
+            },
+            "weeklyAchievement": {
+              "type": "integer"
+            },
+            "sparkie": {
+              "type": "integer"
+            },
+            "totalQuestions": {
+              "type": "integer"
+            },
+            "correctAttempts": {
+              "type": "integer"
+            },
+            "score": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "month",
+            "weeklyAchievement",
+            "sparkie",
+            "totalQuestions",
+            "correctAttempts",
+            "score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "month": {
+              "type": "string"
+            },
+            "weeklyAchievement": {
+              "type": "integer"
+            },
+            "sparkie": {
+              "type": "integer"
+            },
+            "totalQuestions": {
+              "type": "integer"
+            },
+            "correctAttempts": {
+              "type": "integer"
+            },
+            "score": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "month",
+            "weeklyAchievement",
+            "sparkie",
+            "totalQuestions",
+            "correctAttempts",
+            "score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "month": {
+              "type": "string"
+            },
+            "weeklyAchievement": {
+              "type": "integer"
+            },
+            "sparkie": {
+              "type": "integer"
+            },
+            "totalQuestions": {
+              "type": "integer"
+            },
+            "correctAttempts": {
+              "type": "integer"
+            },
+            "score": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "month",
+            "weeklyAchievement",
+            "sparkie",
+            "totalQuestions",
+            "correctAttempts",
+            "score"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "resultCode",
+    "resultMessage",
+    "sessionInformation",
+    "passwordTypeChanged",
+    "permittedNavs",
+    "userInformation",
+    "currentWeekReport",
+    "previousWeekReport",
+    "monthlyReport"
+  ]
+};
+
+pm.test('Schema is valid', function() {
+  pm.expect(tv4.validate(jsonData, schema)).to.be.true;
+//   pm.expect(tv4.validate(data2, schema)).to.be.true; // this statement would not be true
+});

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Status Dashboard</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet prefetch" href='https://use.fontawesome.com/releases/v5.0.10/css/all.css'>
+<style>
+body {
+  padding-top:30px;
+}
+
+body, html {
+  height:100%;
+}
+</style>
+
+</head>
+<body>
+
+
+<div class="container">
+<div class="jumbotron">
+<h2 class="text-center">Health Check Dashboard</h2>
+<h4 class="text-center">{{moment date format="dddd, DD MMMM YYYY HH:mm:ss"}}</h4>
+<table class="table table-bordered">
+  <thead class="text-center">
+    <tr>
+      <th>Method</th>
+      <th>Request URL</th>
+      <th class="text-nowrap">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each aggregations}}
+    {{#each executions}}
+    <tr>
+      <td>{{request.method}}</td>
+      <td>{{request.url}}</td>
+      <td class="text-center {{#eq response.code 200}}bg-success{{else}}bg-danger{{/eq}}"><i class="{{#eq response.code 200}}fas fa-check{{else}}fas fa-times{{/eq}}"></i></td>
+    </tr>
+    {{/each}}
+    {{/each}}
+  </tbody>
+</table>
+</div>
+</div>
+</body>
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
